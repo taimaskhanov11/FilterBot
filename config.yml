@@ -1,0 +1,31 @@
+bot:
+  token: 5036099266:AAEVBH6Fzwm2Mlr_65YCDnwvEmI7NaKJPb0
+  # id бота
+  id: 5036099266
+
+  admin:
+    # добавить в админы бота тоже
+    - 5036099266
+    - 1985947355
+  vip:
+    - 1
+  #    - 269019356
+
+  # узнать id группы через @getmyid_bot
+  chat: -1001750145969
+
+# Данные для авторизации аккаунта для проверки
+controller:
+  api_id: 14225327
+  api_hash: 3a7ecb1d7895b50ecbbd045f1dce412f
+
+# основные настройки
+settings:
+
+  # comment | subscribe | comment_subscribe
+  # Пока реализован только comment
+  check_type: comment
+  queue_length: 5
+
+  # Таймер для у удаления лишних сообщений(в секундах)
+  dd_messages: 5
