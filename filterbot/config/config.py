@@ -34,7 +34,7 @@ class Bot(BaseModel):
     # chat: Optional[int]
 
 
-class Controller(BaseModel):
+class ControllerConfig(BaseModel):
     api_id: int
     api_hash: str
     controller: Optional[TelegramClient]
@@ -48,6 +48,7 @@ class Settings(BaseModel):
     queue_length: int
     dd_messages: int
 
+
 class Database(BaseModel):
     username: str
     password: str
@@ -55,9 +56,10 @@ class Database(BaseModel):
     port: int
     db_name: str
 
+
 class Config(BaseModel):
     bot: Bot
-    db:Database
+    db: Database
     # controller: Controller
     # settings: Settings
 

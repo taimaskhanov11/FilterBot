@@ -13,9 +13,12 @@ class LanguageChoice(StatesGroup):
     choice = State()
 
 
-async def start(message: types.Message, state: FSMContext):
+async def start(message: types.Message | types.CallbackQuery, state: FSMContext):
+    if isinstance(message, types.CallbackQuery):
+        message = message.message
     await state.finish()
-    await message.answer("Главное меню", reply_markup=common_menu.start_menu())
+
+    await message.answer("Главное меню", reply_markup=common_menu.start_menu(message.from_user.id))
 
 
 async def language(call: types.CallbackQuery, user: User):
@@ -32,6 +35,9 @@ async def language_choice(call: types.CallbackQuery, user: User):
 
 
 def register_common_handlers(dp: Dispatcher):
-    dp.register_message_handler(start,UserFilter(), commands="start", state="*")
-    dp.register_callback_query_handler(language, UserFilter(), text="language")
-    dp.register_callback_query_handler(language_choice, UserFilter(), state=LanguageChoice.choice)
+    callback = dp.register_callback_query_handler
+    message = dp.register_message_handler
+    message(start, UserFilter(), commands="start", state="*")
+    callback(start, text="start", state="*")
+    message(language, UserFilter(), text="language")
+    callback(language_choice, UserFilter(), state=LanguageChoice.choice)

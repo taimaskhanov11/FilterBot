@@ -9,7 +9,7 @@ def get_inline_button(bnt_data):
     return InlineKeyboardButton(text=_(bnt_data[0]), callback_data=bnt_data[1])
 
 
-def get_inline_keyboard(ikm_data: list[tuple | Generator]):
+def get_inline_keyboard(ikm_data: list[tuple] | Generator):
     inline_keyboard = (map(get_inline_button, btn) for btn in ikm_data)
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
 
