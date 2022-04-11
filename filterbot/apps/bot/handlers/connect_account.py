@@ -48,15 +48,16 @@ async def connect_account_phone(message: types.Message, user: User, state: FSMCo
         api_id, api_hash, phone = tuple(map(lambda x: x.strip(), message.text.split(":")))
         logger.info(f"{user.username}| Полученные данные {api_id}|{api_hash}|{phone}")
         account = await user.account
-        if account.api_id == int(api_id):
-            await restart_controller(user)
-            await message.answer(
-                _("✅ Бот успешно подключен, ожидайте пару секунд и нажмите кнопку ниже"),
-                reply_markup=common_menu.menu(),
-            )
-            logger.success(f"Аккаунт пользователя {user.user_id} успешно переподключен")
-            await state.finish()
-            return
+        if account:
+            if account.api_id == int(api_id):
+                await restart_controller(user)
+                await message.answer(
+                    _("✅ Бот успешно подключен, ожидайте пару секунд и нажмите кнопку ниже"),
+                    reply_markup=common_menu.menu(),
+                )
+                logger.success(f"Аккаунт пользователя {user.user_id} успешно переподключен")
+                await state.finish()
+                return
 
         client = ConnectAccountController(
             user_id=user.user_id,
