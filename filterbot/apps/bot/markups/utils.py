@@ -2,8 +2,6 @@ from typing import Generator
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 
-from filterbot.loader import _
-
 
 def get_inline_button(bnt_data):
     return InlineKeyboardButton(text=bnt_data[0], callback_data=bnt_data[1])

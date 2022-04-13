@@ -6,6 +6,7 @@ from filterbot.apps.bot.markups.utils import get_inline_keyboard
 from filterbot.db.models import Chat
 from filterbot.loader import _
 
+
 def filter_menu():
     keyboard = [
         ((_("📄 Текущие фильтры"), "current_chat_filters"), (_("🔧 Выбрать чат для фильтра"), "create_chat_choice"),),

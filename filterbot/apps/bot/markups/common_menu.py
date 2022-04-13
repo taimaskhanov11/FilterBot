@@ -2,6 +2,7 @@ from filterbot.apps.bot import temp
 from filterbot.apps.bot.markups.utils import get_inline_keyboard
 from filterbot.loader import _
 
+
 def start_menu(user_id):
     if controller := temp.controllers.get(user_id):
         controller_status = ((_("❌ Отвязать аккаунт"), "unlink_account"),)

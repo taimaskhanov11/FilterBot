@@ -31,6 +31,7 @@ async def user_statistics(call: types.CallbackQuery, state: FSMContext, callback
         logger.critical(e)
         await call.message.answer(f"Пользователь не подключил фильтры")
 
+
 async def admin_statistic(call: types.CallbackQuery, state: FSMContext):
     await state.finish()
     users = await User.all().count()

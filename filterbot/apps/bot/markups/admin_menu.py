@@ -12,6 +12,7 @@ def admin_start():
 
     return get_inline_keyboard(keyword)
 
+
 def user_statistics():
     keyword = [
         (("👥 Все пользователи", "current_users"),),
@@ -38,6 +39,7 @@ def current_users(users: list[User]):
     )
 
     return get_inline_keyboard(keyboard)
+
 
 def admin_button():
     keyboard = [
