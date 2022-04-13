@@ -20,7 +20,8 @@ def start_menu(user_id):
         client_status,
         ((_("⚙ Настройки фильтров чатов"), "chat_filters"),),
         ((_("📈 Статистика"), "statistic"),),
-        ((_("🇷🇺Язык (🇺🇸 language)"), "language"), ("💬 Поддержка", "support")),
+        ((_("🔖 Ввести промокод"), "input_promocode"),),
+        ((_("🇷🇺Язык (🇺🇸 language)"), "language"), (_("💬 Поддержка"), "support")),
     ]
     return get_inline_keyboard(keyboard)
 

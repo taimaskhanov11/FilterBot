@@ -6,6 +6,7 @@ from aiogram.types import BotCommand
 from loguru import logger
 
 from filterbot.apps.bot.handlers.admin_handlers.admin_menu import register_admin_menu
+from filterbot.apps.bot.handlers.admin_handlers.promocode_menu import register_promocode_menu
 from filterbot.apps.bot.handlers.chat_filters import register_chat_filter_handlers
 from filterbot.apps.bot.handlers.common_menu import register_common_handlers
 from filterbot.apps.bot.handlers.connect_account import register_connect_account_handlers
@@ -54,6 +55,7 @@ async def main():
     # Регистрация хэндлеров
     register_common_handlers(dp)
     register_admin_menu(dp)
+    register_promocode_menu(dp)
     register_connect_account_handlers(dp)
     register_chat_filter_handlers(dp)
     register_error_handlers(dp)

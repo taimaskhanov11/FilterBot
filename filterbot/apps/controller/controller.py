@@ -174,9 +174,13 @@ class ConnectAccountController(Controller):
         )
         logger.success(f"Аккаунт пользователя {self} успешно подключен")
 
+    async def _2auth(self):
+        raise ValueError("Двухэтапная аутентификация")
+
     async def try_connect(self):
-        await self.client.sign_in()
-        await self.client.start(lambda: self.phone, code_callback=lambda: self._get_code())
+        await self.client.start(lambda: self.phone,
+                                password=lambda: self._2auth(),
+                                code_callback=lambda: self._get_code())
 
     async def connect_account(self):
         """Подключение аккаунта и создание сессии"""

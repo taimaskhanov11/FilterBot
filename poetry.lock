@@ -1,4 +1,12 @@
 [[package]]
+name = "action"
+version = "1.4.4"
+description = "A command-line parser you won't hate"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "aiogram"
 version = "2.19"
 description = "Is a pretty simple and fully asynchronous framework for Telegram Bot API"
@@ -562,9 +570,12 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "11832521a30b3c87005b6d50ac311820c1d6934dd725207d7a7debccfde04529"
+content-hash = "2a7b37deca9f58412a7cee32e6160bca96213c2f5c23ff5f8f7ff7d584487b7a"
 
 [metadata.files]
+action = [
+    {file = "action-1.4.4-py3-none-any.whl", hash = "sha256:c05e5c98eed350faa4d298decd347a94bf6dab1b35b9ca18432fadfd466e09a2"},
+]
 aiogram = [
     {file = "aiogram-2.19-py3-none-any.whl", hash = "sha256:1ffb7e22e7d06bab0009cc2e9d5191a74273c8c482b0b782dcfde3deeeccbef0"},
     {file = "aiogram-2.19.tar.gz", hash = "sha256:60ef7564a6fd2def9057d6f097ac18da99346a758a25fad3f6a552c6672baabe"},

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-13 15:33+0300\n"
+"POT-Creation-Date: 2022-04-13 16:05+0300\n"
 "PO-Revision-Date: 2022-04-13 15:11+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -121,9 +121,9 @@ msgid "Фильтр успешно создан"
 msgstr "The filter has been successfully created"
 
 #: filterbot/apps/bot/handlers/common_menu.py:23
-#: filterbot/apps/bot/markups/common_menu.py:30
-#: filterbot/apps/bot/markups/common_menu.py:37
-#: filterbot/apps/bot/markups/filter_menu.py:85
+#: filterbot/apps/bot/markups/common_menu.py:31
+#: filterbot/apps/bot/markups/common_menu.py:38
+#: filterbot/apps/bot/markups/filter_menu.py:86
 msgid "Главное меню"
 msgstr "Main Menu"
 
@@ -224,81 +224,85 @@ msgstr ""
 "Account unlinking canceled\n"
 "Main menu"
 
-#: filterbot/apps/bot/markups/common_menu.py:7
+#: filterbot/apps/bot/markups/common_menu.py:8
 msgid "❌ Отвязать аккаунт"
 msgstr "❌ Unlink account"
 
-#: filterbot/apps/bot/markups/common_menu.py:9
+#: filterbot/apps/bot/markups/common_menu.py:10
 msgid "⏸ Приостановить бота"
 msgstr "⏸ Suspend the bot"
 
-#: filterbot/apps/bot/markups/common_menu.py:11
+#: filterbot/apps/bot/markups/common_menu.py:12
 msgid "🔄 Возобновить бота"
 msgstr "🔄 Resume bot"
 
-#: filterbot/apps/bot/markups/common_menu.py:14
+#: filterbot/apps/bot/markups/common_menu.py:15
 msgid "➕ Привязать аккаунт"
 msgstr "➕ Link an account"
 
-#: filterbot/apps/bot/markups/common_menu.py:17
+#: filterbot/apps/bot/markups/common_menu.py:18
 msgid "👤 Мой профиль"
 msgstr "👤 My Profile"
 
-#: filterbot/apps/bot/markups/common_menu.py:20
+#: filterbot/apps/bot/markups/common_menu.py:21
 msgid "⚙ Настройки фильтров чатов"
 msgstr "⚙ Chat Filter Settings"
 
-#: filterbot/apps/bot/markups/common_menu.py:21
+#: filterbot/apps/bot/markups/common_menu.py:22
 msgid "📈 Статистика"
 msgstr "📈 Statistics"
 
-#: filterbot/apps/bot/markups/common_menu.py:22
+#: filterbot/apps/bot/markups/common_menu.py:23
 msgid "🇷🇺Язык (🇺🇸 language)"
 msgstr "🇺🇸Language (🇷🇺 Язык)"
 
-#: filterbot/apps/bot/markups/common_menu.py:44
+#: filterbot/apps/bot/markups/common_menu.py:23
+msgid "💬 Поддержка"
+msgstr "💬 Support"
+
+#: filterbot/apps/bot/markups/common_menu.py:45
 msgid "Да"
 msgstr "Yes"
 
-#: filterbot/apps/bot/markups/common_menu.py:45
+#: filterbot/apps/bot/markups/common_menu.py:46
 msgid "Нет"
 msgstr "No"
 
-#: filterbot/apps/bot/markups/filter_menu.py:11
+#: filterbot/apps/bot/markups/filter_menu.py:12
 msgid "📄 Текущие фильтры"
 msgstr "📄 Current filters"
 
-#: filterbot/apps/bot/markups/filter_menu.py:11
+#: filterbot/apps/bot/markups/filter_menu.py:12
 msgid "🔧 Выбрать чат для фильтра"
 msgstr "🔧 Choose a chat for the filter"
 
-#: filterbot/apps/bot/markups/filter_menu.py:12
+#: filterbot/apps/bot/markups/filter_menu.py:13
 msgid "↩ Главное меню"
 msgstr "↩ Main menu"
 
-#: filterbot/apps/bot/markups/filter_menu.py:32
+#: filterbot/apps/bot/markups/filter_menu.py:33
 msgid "Удалить"
 msgstr "Remove"
 
-#: filterbot/apps/bot/markups/filter_menu.py:33
-#: filterbot/apps/bot/markups/filter_menu.py:50
-#: filterbot/apps/bot/markups/filter_menu.py:67
+#: filterbot/apps/bot/markups/filter_menu.py:34
+#: filterbot/apps/bot/markups/filter_menu.py:51
+#: filterbot/apps/bot/markups/filter_menu.py:68
 msgid "Назад"
 msgstr "Back"
 
-#: filterbot/apps/bot/markups/filter_menu.py:82
+#: filterbot/apps/bot/markups/filter_menu.py:83
 msgid "✍ Добавить По ключевым словам"
 msgstr "✍ Add By Keywords"
 
-#: filterbot/apps/bot/markups/filter_menu.py:83
+#: filterbot/apps/bot/markups/filter_menu.py:84
 msgid "👥 Добавить Фильтр по пользователям"
 msgstr "👥 Add a Filter by users"
 
-#: filterbot/apps/bot/markups/filter_menu.py:84
+#: filterbot/apps/bot/markups/filter_menu.py:85
 msgid "👤 Добавить Фильтр по админам"
 msgstr "👤 Add a Filter by admins"
 
-#: filterbot/apps/bot/markups/filter_menu.py:86
+#: filterbot/apps/bot/markups/filter_menu.py:87
 msgid "✅ Завершить создание"
 msgstr "✅ Finish creating"
 

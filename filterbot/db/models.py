@@ -22,6 +22,7 @@ class User(models.Model):
     registered_at = fields.DatetimeField(auto_now_add=True, description="Registration date")
     language = fields.CharField(max_length=5, description="Language code")
     account: fields.OneToOneNullableRelation["Account"]
+    promocodes: fields.ReverseRelation["PromoCode"]
 
     async def set_language(self, language: Literal["ru", "en"]):
         self.language = language
@@ -36,6 +37,21 @@ class User(models.Model):
         if not is_create:
             logger.info(f"{acc} уже существует")
         # await user.save()
+
+
+class PromoCode(models.Model):
+    title = fields.CharField(max_length=255)
+    limit = fields.IntField()
+    code = fields.CharField(max_length=255, index=True)
+    user = fields.ForeignKeyField("models.User", null=True)
+
+    def __str__(self):
+        return (
+            f"Название: {self.title}\n"
+            f"Лимит: {self.limit}\n"
+            f"Промокод: {self.code}\n"
+            f"Привязка: {self.user or 'Не привязан'}\n"
+        )
 
 
 class ChatStorage(models.Model):

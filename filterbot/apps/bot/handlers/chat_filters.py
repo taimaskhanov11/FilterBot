@@ -118,7 +118,8 @@ async def create_chat_storage(call: types.CallbackQuery, state: FSMContext, call
     await CreateChat.filter_type.set()
 
 
-async def create_chat_filter_type(call: types.CallbackQuery, state: FSMContext, callback_data: dict[str, str]):
+async def create_chat_filter_type(call: types.CallbackQuery, state: FSMContext, user: User,
+                                  callback_data: dict[str, str]):
     await state.update_data(
         chat_storage={
             "chat_id": callback_data["chat_id"],
@@ -128,7 +129,7 @@ async def create_chat_filter_type(call: types.CallbackQuery, state: FSMContext, 
     await call.message.answer(
         _("Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно должно пройти успешно все фильтры которые вы добавите."
           ),
-        reply_markup=markups.filter_menu.create_chat_filter())
+        reply_markup=await markups.filter_menu.create_chat_filter(user))
     await state.update_data(filters={})
     await CreateChat.filter_input.set()
 
@@ -242,7 +243,7 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
               # f"{pprint.pformat(data['filters'])}"
               f"\nХотите добавить еще?").format(end_text=end_text),
             "html",
-            reply_markup=markups.filter_menu.create_chat_filter(again=True),
+            reply_markup= await markups.filter_menu.create_chat_filter(user, again=True),
         )
 
         await CreateChat.filter_input.set()
@@ -304,7 +305,7 @@ def register_chat_filter_handlers(dp: Dispatcher):
     # create chat filter
     callback(create_chat_choice, UserFilter(), text="create_chat_choice")
     callback(create_chat_storage, chat_cb.filter(action="create"))
-    callback(create_chat_filter_type, chat_cb.filter(action="create"), state=CreateChat.filter_type)
+    callback(create_chat_filter_type, UserFilter(), chat_cb.filter(action="create"), state=CreateChat.filter_type)
     callback(create_chat_filter_input, UserFilter(), filter_cb.filter(), state=CreateChat.filter_input)
     message(create_chat_filter_additional, UserFilter(), state=CreateChat.filter_additional)
     # message(create_chat_filter_finish, UserFilter(), state=CreateChat.filter_finish)

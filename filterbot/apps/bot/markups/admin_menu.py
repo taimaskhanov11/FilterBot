@@ -1,4 +1,4 @@
-from filterbot.apps.bot.callback_data.chat_filters_callback import user_cd
+from filterbot.apps.bot.callback_data.chat_filters_callback import user_cd, promocode_cd
 from filterbot.apps.bot.markups.utils import get_inline_keyboard
 from filterbot.db.models import User
 
@@ -7,6 +7,8 @@ def admin_start():
     keyword = [
         (("👥 Все пользователи", "current_users"),),
         (("📈 Общая статистика", "admin_statistic"),),
+        (("🔖 Создать промокод", "create_promocode"),),
+        (("📒 Текущие промокоды", "current_promocodes"),),
         # (("👤 Мой профиль", "profile"),),
     ]
 
