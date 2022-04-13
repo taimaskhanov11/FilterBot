@@ -1,0 +1,293 @@
+# Translations template for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-04-13 15:33+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: filterbot/apps/bot/handlers/chat_filters.py:39
+msgid "Привяжите аккаунт"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:42
+msgid "Для настройки фильтров возобновите работу бота"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:45
+msgid "Выберите функцию"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:53
+msgid "Текущие чаты с фильтрами"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:72
+msgid "Вы действительно хотите удалить фильтр чата?"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:81
+msgid "Чат {title} успешно удален"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:83
+msgid "Удаление отменено"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:96
+msgid ""
+"Ваши текущие чаты без фильтров. Выберите чат из списка для создания "
+"фильтра:\n"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:115
+msgid "Выберите хранилище, куда будут пересылаться сообщения"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:129
+msgid ""
+"Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно "
+"должно пройти успешно все фильтры которые вы добавите."
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:143
+msgid ""
+"Ведите ключевые слова для фильтра через запятую. Например:\n"
+"подтвердить, забрать, вознаграждение, получить, claim, mint, rewards"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:148
+msgid ""
+"Ведите Имена пользователей или их ID для фильтра через запятую. Например:"
+"\n"
+"alisiya, 1985947355, vsl48, alena_helpchina, 5036099266, 1985947355"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:200
+msgid "Фильтр id по именам пользователей\n"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:211
+msgid "Фильтр id по админам:\n"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:219
+msgid "Ключевые слова для фильтрации:\n"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:241
+msgid ""
+"Фильтр добавлен.\n"
+"Все данные фильтра:\n"
+"{end_text}\n"
+"Хотите добавить еще?"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:251
+msgid "Ошибка. Проверьте правильность введенных данных."
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:256
+msgid "Данные успешно получены. Идет создание фильтра..."
+msgstr ""
+
+#: filterbot/apps/bot/handlers/chat_filters.py:289
+msgid "Фильтр успешно создан"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/common_menu.py:23
+#: filterbot/apps/bot/markups/common_menu.py:30
+#: filterbot/apps/bot/markups/common_menu.py:37
+#: filterbot/apps/bot/markups/filter_menu.py:85
+msgid "Главное меню"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/common_menu.py:28
+msgid "Выберите язык интерфейса"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/common_menu.py:38
+msgid "Язык интерфейса изменен"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/common_menu.py:47
+msgid "Фильтры не подключены"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:32
+msgid "Ваш аккаунт уже подключен и запущен"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:36
+msgid ""
+"Для подключения аккаунта отключите Двухэтапную аутентификацию. Cоздайте "
+"приложение по ссылке https://my.telegram.org/auth?to=apps и сохраните "
+"api_id, api_hash.\n"
+"Отправьте сюда ваши данные в формате api_id:api_hash:номер_телефона. "
+"Пример\n"
+"123445:asdf31234fads:+79749599419"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:56
+msgid "✅ Бот успешно подключен, ожидайте пару секунд и нажмите кнопку ниже"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:75
+msgid ""
+"Введите код подтверждения из сообщения Телеграмм с префиксом code, в "
+"только таком виде code<ваш код>. Если отправить просто цифры то тг "
+"обнулит код\n"
+"Например:\n"
+"code43123"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:82
+msgid "Неправильный ввод"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:89
+msgid ""
+"❌ Неправильный ввод код.\n"
+"Пожалуйста повторите попытку создания с первого этапа и введите код с "
+"префиксом code как узказано в примере ниже \n"
+"Например:\n"
+"code43123"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:97
+msgid ""
+"Код получен, ожидайте завершения\n"
+"Если все прошло успешно Вам придет сообщение в личный чат."
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:102
+msgid "Вы точно хотите отвязать аккаунт?"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:113
+msgid ""
+"✅ Аккаунт успешно отвязан\n"
+"Главное меню"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/connect_account.py:115
+msgid ""
+"Отвязка аккаунта отменена\n"
+"Главное меню"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:7
+msgid "❌ Отвязать аккаунт"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:9
+msgid "⏸ Приостановить бота"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:11
+msgid "🔄 Возобновить бота"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:14
+msgid "➕ Привязать аккаунт"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:17
+msgid "👤 Мой профиль"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:20
+msgid "⚙ Настройки фильтров чатов"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:21
+msgid "📈 Статистика"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:22
+msgid "🇷🇺Язык (🇺🇸 language)"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:44
+msgid "Да"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:45
+msgid "Нет"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:11
+msgid "📄 Текущие фильтры"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:11
+msgid "🔧 Выбрать чат для фильтра"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:12
+msgid "↩ Главное меню"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:32
+msgid "Удалить"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:33
+#: filterbot/apps/bot/markups/filter_menu.py:50
+#: filterbot/apps/bot/markups/filter_menu.py:67
+msgid "Назад"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:82
+msgid "✍ Добавить По ключевым словам"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:83
+msgid "👥 Добавить Фильтр по пользователям"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:84
+msgid "👤 Добавить Фильтр по админам"
+msgstr ""
+
+#: filterbot/apps/bot/markups/filter_menu.py:86
+msgid "✅ Завершить создание"
+msgstr ""
+
+#: filterbot/apps/bot/utils/statistic.py:28
+msgid ""
+"Количество фильтрованных чатов: {}\n"
+"Количество хранилищ: {}\n"
+"Количество отфильтрованных сообщений {}\n"
+"Всего полученных сообщений {}"
+msgstr ""
+
+#: filterbot/apps/controller/controller.py:149
+msgid ""
+"🚫 Ошибка, отмена привязки ... Попробуйте отключить Двухэтапную "
+"аутентификацию"
+msgstr ""
+
+#: filterbot/db/models.py:67
+msgid "Чат: "
+msgstr ""
+
+#: filterbot/db/models.py:68
+msgid "Хранилище: "
+msgstr ""
+
+#: filterbot/db/models.py:69
+msgid "Фильтры:"
+msgstr ""
+

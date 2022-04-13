@@ -34,17 +34,18 @@ async def connect_account(call: types.CallbackQuery):
 
     await call.message.answer(
         _(
-            "Для подключения аккаунта создайте приложение"
+            "Для подключения аккаунта отключите Двухэтапную аутентификацию. Cоздайте приложение"
             " по ссылке https://my.telegram.org/auth?to=apps и сохраните api_id, api_hash.\n"
             "Отправьте сюда ваши данные в формате api_id:api_hash:номер_телефона. Пример\n"
             "123445:asdf31234fads:+79749599419"
-        )
+        ), reply_markup=markups.common_menu.menu_button()
     )
     await ConnectAccount.first()
 
 
 async def connect_account_phone(message: types.Message, user: User, state: FSMContext):
     try:
+        await ConnectAccount.next()
         api_id, api_hash, phone = tuple(map(lambda x: x.strip(), message.text.split(":")))
         logger.info(f"{user.username}| Полученные данные {api_id}|{api_hash}|{phone}")
         account = await user.account
@@ -53,7 +54,7 @@ async def connect_account_phone(message: types.Message, user: User, state: FSMCo
                 await restart_controller(user)
                 await message.answer(
                     _("✅ Бот успешно подключен, ожидайте пару секунд и нажмите кнопку ниже"),
-                    reply_markup=common_menu.menu(),
+                    reply_markup=common_menu.menu_button(),
                 )
                 logger.success(f"Аккаунт пользователя {user.user_id} успешно переподключен")
                 await state.finish()
@@ -65,12 +66,11 @@ async def connect_account_phone(message: types.Message, user: User, state: FSMCo
             phone=phone,
             api_id=api_id,
             api_hash=api_hash,
+            chats={}
         )
         queue = Queue(maxsize=1)
         controller_codes_queue[user.user_id] = queue
-
         asyncio.create_task(client.start())
-        await ConnectAccount.next()
         await message.answer(
             _(
                 "Введите код подтверждения из сообщения Телеграмм с префиксом code,"
@@ -83,10 +83,18 @@ async def connect_account_phone(message: types.Message, user: User, state: FSMCo
 
 
 async def connect_account_code(message: types.Message, user: User, state: FSMContext):
+    code = message.text
+    if code.isdigit():
+        await message.answer(
+            _(f"❌ Неправильный ввод код.\nПожалуйста повторите попытку создания с первого этапа и введите код с префиксом code как узказано в примере ниже \n"
+              f"Например:\ncode43123"), reply_markup=common_menu.start_menu(user.user_id))
+        await state.finish()
+        return
     code = message.text.replace("code", "")
     queue = controller_codes_queue.get(user.user_id)
     queue.put_nowait(code)
-    await message.answer(_("✅ Код получен, ожидайте завершения\n Вам придет сообщение в личный чат."))
+    await message.answer(
+        _("Код получен, ожидайте завершения\nЕсли все прошло успешно Вам придет сообщение в личный чат."))
     await state.finish()
 
 

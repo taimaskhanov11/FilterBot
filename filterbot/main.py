@@ -5,10 +5,12 @@ from aiogram import Bot
 from aiogram.types import BotCommand
 from loguru import logger
 
+from filterbot.apps.bot.handlers.admin_handlers.admin_menu import register_admin_menu
 from filterbot.apps.bot.handlers.chat_filters import register_chat_filter_handlers
 from filterbot.apps.bot.handlers.common_menu import register_common_handlers
 from filterbot.apps.bot.handlers.connect_account import register_connect_account_handlers
 from filterbot.apps.bot.handlers.errors_handlers import register_error_handlers
+from filterbot.apps.bot.utils.locales_helpers import update_users_locales
 from filterbot.apps.controller.controller import init_controllers
 from filterbot.config.config import config, config_file
 from filterbot.config.setting_logging import init_logging
@@ -32,7 +34,8 @@ async def main():
         filename=config_file or "",
         old_logger=True,
         level="TRACE",
-        old_level=logging.DEBUG,
+        # old_level=logging.DEBUG,
+        old_level=logging.INFO,
         steaming=True,
         write=False,
     )
@@ -50,7 +53,7 @@ async def main():
 
     # Регистрация хэндлеров
     register_common_handlers(dp)
-
+    register_admin_menu(dp)
     register_connect_account_handlers(dp)
     register_chat_filter_handlers(dp)
     register_error_handlers(dp)
@@ -61,6 +64,7 @@ async def main():
     # Инициализация контроллеров
     await init_controllers()
 
+    await update_users_locales()
     # Запуск поллинга
     # updates()  # пропуск накопившихся апдейтов (необязательно)
     # controller = Controller(**config.controller.dict())

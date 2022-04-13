@@ -41,7 +41,7 @@ class User(models.Model):
 class ChatStorage(models.Model):
     chat_id = fields.BigIntField(index=True)
     title = fields.CharField(max_length=100)
-    chat: fields.OneToOneNullableRelation["Chat"]
+    chats: fields.ReverseRelation["Chat"]
 
     class Meta:
         table_description = "Chat storage for forwarding messages"
@@ -57,7 +57,7 @@ class Chat(models.Model):
         "models.MessageFilter", on_delete=fields.CASCADE
     )
     account: fields.ForeignKeyRelation["Account"] = fields.ForeignKeyField("models.Account")
-    chat_storage: fields.OneToOneRelation["ChatStorage"] = fields.OneToOneField("models.ChatStorage")
+    chat_storage: fields.ForeignKeyRelation["ChatStorage"] = fields.ForeignKeyField("models.ChatStorage")
 
     def __str__(self):
         return f"{self.title}[ID {self.chat_id}]"
@@ -78,7 +78,10 @@ class Chat(models.Model):
 
     @classmethod
     async def delete_chat(cls, pk) -> "Chat":
-        chat = await Chat.get(pk=pk)
+        chat = await Chat.get(pk=pk).prefetch_related(
+            "message_filter__user_filters",
+            "message_filter__word_filter", )
+        await chat.message_filter.delete_filter()
         await chat.delete()
         return chat
 
@@ -86,16 +89,14 @@ class Chat(models.Model):
 class MessageFilter(models.Model):
     # chat_filter: fields.OneToOneNullableRelation['ChatFilter'] = fields.OneToOneField("models.ChatFilter", null=True,
     #                                                                                   on_delete=fields.SET_NULL)
-    user_filter: fields.OneToOneNullableRelation["UserFilter"] = fields.OneToOneField(
-        "models.UserFilter", null=True, on_delete=fields.CASCADE
-    )
+    user_filters: fields.ReverseRelation["UserFilter"]
     word_filter: fields.OneToOneNullableRelation["WordFilter"] = fields.OneToOneField(
         "models.WordFilter", null=True, on_delete=fields.CASCADE
     )
 
     def __str__(self):
         # return f"{self.user_filter}\n{self.word_filter}"
-        return "\n\n".join(map(str, filter(bool, (self.user_filter, self.word_filter))))
+        return "\n\n".join(map(str, filter(bool, (*self.user_filters, self.word_filter))))
 
     class Meta:
         table_description = "Filter collections"
@@ -106,35 +107,58 @@ class MessageFilter(models.Model):
     #  'storage_chat': {'chat_id': '735095975'}}
     #  type: Literal["word", "id", "username", "admin"]
 
+    async def delete_filter(self):
+        if self.user_filters:
+            for _filter in self.user_filters:
+                await _filter.delete()
+        if self.word_filter:
+            await self.word_filter.delete()
+        await self.delete()
+
     @classmethod
     async def create_filter(
             cls,
-            filters: list[dict[str, str]],
+            filters: dict[dict[str, str]],
     ) -> "MessageFilter":
-        filters_data = {}
-        for _filter in filters:
-            if _filter["type"] == "word":
-                word_filter = await WordFilter.create_filter(_filter["data"])
-                filters_data.update(word_filter=word_filter)
+        message_filter = await cls.create()
+        for _type, _filter in filters.items():
+            data = _filter["data"]
+            if _type == "word":
+                word_filter = await WordFilter.create(words=data)
+                message_filter.word_filter = word_filter
             else:
                 # user_filter = await UserFilter.create_filter(_filter["type"], _filter["data"])
-                user_filter = await UserFilter.create(filter_type=_filter["type"], ids=_filter["data"])
-                filters_data.update(user_filter=user_filter)
+                await UserFilter.create(
+                    message_filter=message_filter,
+                    filter_type=_type,
+                    ids=data)
+                # filters_data.update(user_filter=user_filter)
 
-        message_filter = await cls.create(**filters_data)
+        await message_filter.save()
         return message_filter
 
     async def message_check(self, message) -> bool:
-        for _filter in filter(bool, (self.user_filter, self.word_filter)):  # self.chat_filter,
-            if not await _filter.message_check(message):
+        if self.user_filters:
+            if not any((_filter.message_check(message) for _filter in self.user_filters)):
+                return False
+
+        if self.word_filter:
+            if not self.word_filter.message_check(message):
                 return False
         return True
+
+        # for _filter in filter(bool, (*self.user_filters, self.word_filter)):  # self.chat_filter,
+        #     if not await _filter.message_check(message):
+        #         return False
+        # return True
 
 
 class UserFilter(models.Model):
     ids = fields.JSONField()
     filter_type: Literal["admin", "user"] = fields.CharField(max_length=10)
-    message_filter: fields.OneToOneNullableRelation["MessageFilter"]
+    message_filter: fields.ForeignKeyRelation["MessageFilter"] = fields.ForeignKeyField("models.MessageFilter",
+                                                                                        "user_filters",
+                                                                                        on_delete=fields.CASCADE)
 
     class Meta:
         table_description = "Filter for users"
@@ -149,10 +173,12 @@ class UserFilter(models.Model):
     async def create_filter(cls, filter_type, ids: dict[int, str]):
         pass
 
-    async def message_check(self, message: patched.Message) -> bool:
-        logger.trace(f"Проверка фильтра по пользователям")
-        if message.from_id.user_id in self.ids.values():
+    def message_check(self, message: patched.Message) -> bool:
+        _id = message.from_id.user_id
+        if _id in self.ids.values():
+            logger.success(f"Проверка фильтра по {self.filter_type}|{_id} прошел")
             return True
+        logger.trace(f"Проверка фильтра по {self.filter_type}|{_id} не прошел")
         return False
 
 
@@ -175,10 +201,12 @@ class WordFilter(models.Model):
         words = list(map(lambda x: x.strip(), words.split(",")))
         return await cls.create(words=words)
 
-    async def message_check(self, message: patched.Message) -> bool:
-        logger.trace(f"Проверка фильтра по ключевым словам {message.text}")
-        if any(filter(lambda x: x in message.text, self.words)):
+    def message_check(self, message: patched.Message) -> bool:
+        text = message.text.lower()
+        if any(filter(lambda x: x in text, self.words)):
+            logger.success(f"Проверка фильтра по ключевым словам прошел")
             return True
+        logger.trace(f"Проверка фильтра по ключевым словам не прошел")
         return False
 
 

@@ -6,7 +6,7 @@ from filterbot.loader import _
 
 
 def get_inline_button(bnt_data):
-    return InlineKeyboardButton(text=_(bnt_data[0]), callback_data=bnt_data[1])
+    return InlineKeyboardButton(text=bnt_data[0], callback_data=bnt_data[1])
 
 
 def get_inline_keyboard(ikm_data: list[tuple] | Generator):
