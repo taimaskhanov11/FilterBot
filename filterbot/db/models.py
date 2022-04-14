@@ -24,6 +24,9 @@ class User(models.Model):
     account: fields.OneToOneNullableRelation["Account"]
     promocodes: fields.ReverseRelation["PromoCode"]
 
+    def __str__(self):
+        return f"{self.username}[{self.user_id}]"
+
     async def set_language(self, language: Literal["ru", "en"]):
         self.language = language
         await self.save(update_fields=["language"])

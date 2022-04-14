@@ -25,7 +25,7 @@ async def current_promocodes(call: types.CallbackQuery, state: FSMContext):
 
 async def get_promocode(call: types.CallbackQuery, state: FSMContext, callback_data: dict[str, str]):
     pk = callback_data.get("id")
-    promocode = await PromoCode.get(pk=pk)
+    promocode = await PromoCode.get(pk=pk).select_related("user")
     await call.message.answer(f"{promocode}")
     await state.finish()
 

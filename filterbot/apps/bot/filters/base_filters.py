@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher.filters import BoundFilter
 from loguru import logger
 
+from filterbot.config.config import config
 from filterbot.db.models import User
 
 
@@ -20,4 +21,7 @@ class UserFilter(BoundFilter):
         )
         if _is_created:
             logger.info(f"Новый пользователь {user=}")
+        if user.user_id in config.bot.block_list:
+            logger.warning(f"{user.user_id} заблокирован")
+            return False
         return {"user": user}

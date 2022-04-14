@@ -30,6 +30,7 @@ class Bot(BaseModel):
     token: str
     # id: int
     admins: Optional[list[int]]
+    block_list: Optional[list[int]]
     # vip: Optional[list[int]]
     # chat: Optional[int]
 
@@ -68,4 +69,4 @@ I18N_DOMAIN = "filterbot"
 LOCALES_DIR = BASE_DIR / "filterbot/apps/bot/locales"
 
 config_file = parse_config()
-config = Config(**load_yaml(config_file or "config_dev.yml"))
+config = Config(**load_yaml(config_file or "config.yml"))

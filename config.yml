@@ -2,6 +2,8 @@ bot:
   token: your_token
   admins:
     - 5050812985
+  block_list:
+    - 1
 db:
   username: postgres
   password: postgres
