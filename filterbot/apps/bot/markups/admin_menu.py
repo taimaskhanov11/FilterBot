@@ -34,7 +34,7 @@ def current_users(users: list[User]):
     keyboard = []
     for add_users in new_users:
         keyboard.append(
-            (user.username, user_cd.new(id=user.user_id)) for user in add_users
+            ((user.username, user_cd.new(id=user.user_id)),) for user in add_users
         )
     # keyboard = [([chat.title, chat_cb.new(chat_id=chat.id, action="create")],) for chat in chats if not chat.is_user]
     # keyboard = (((chat.title, chat_cb.new(id=chat.id, action="create"),),) for chat in chats)
