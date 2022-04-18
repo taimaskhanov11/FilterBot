@@ -2,7 +2,6 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardRemove
-from aiogram.utils import markdown
 from loguru import logger
 
 from filterbot.apps.bot import markups
@@ -12,6 +11,7 @@ from filterbot.apps.bot.temp import users_locales
 from filterbot.apps.bot.utils.statistic import statistic_storage
 from filterbot.db.models import User, PromoCode
 from filterbot.loader import _
+
 
 class LanguageChoice(StatesGroup):
     choice = State()
@@ -25,7 +25,14 @@ async def start(message: types.Message | types.CallbackQuery, user: User, state:
     if isinstance(message, types.CallbackQuery):
         message = message.message
     await state.finish()
-    await message.answer(_("Главное меню:"),"html", reply_markup=common_menu.start_menu(user.user_id))
+    await message.answer(_("Главное меню:"), "html", reply_markup=common_menu.start_menu(user.user_id))
+
+
+async def profile(call: types.CallbackQuery, user: User, state: FSMContext):
+    await state.finish()
+    await call.message.edit_text(f"ID: {user.user_id}\n\n"
+                                 f"Username: @{user.username}\n\n\n", "html",
+                                 reply_markup=common_menu.start_menu(user.user_id))
 
 
 async def language(call: types.CallbackQuery, user: User):
@@ -80,6 +87,7 @@ def register_common_handlers(dp: Dispatcher):
     message = dp.register_message_handler
     message(start, UserFilter(), commands="start", state="*")
     callback(start, UserFilter(), text="start", state="*")
+    callback(profile, UserFilter(), text="profile", state="*")
     callback(statistic, text="statistic", state="*")
     callback(input_promocode, text="input_promocode", state="*")
     message(input_promocode_done, UserFilter(), state=InputPromocode.input)
