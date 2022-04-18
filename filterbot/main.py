@@ -39,7 +39,7 @@ async def main():
         # old_level=logging.DEBUG,
         old_level=logging.INFO,
         steaming=True,
-        write=False,
+        write=True,
     )
 
     logger.success(f"Starting bot {(await bot.get_me()).username}")
@@ -61,7 +61,7 @@ async def main():
     register_promocode_menu(dp)
     register_ban_menu(dp)
 
-    #common
+    # common
     register_connect_account_handlers(dp)
     register_chat_filter_handlers(dp)
     register_error_handlers(dp)
