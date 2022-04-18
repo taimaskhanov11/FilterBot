@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-18 17:18+0300\n"
+"POT-Creation-Date: 2022-04-18 18:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,14 +107,11 @@ msgid "Фильтр успешно создан"
 msgstr ""
 
 #: filterbot/apps/bot/handlers/common_menu.py:28
-#: filterbot/apps/bot/markups/common_menu.py:32
-#: filterbot/apps/bot/markups/common_menu.py:39
-#: filterbot/apps/bot/markups/filter_menu.py:110
-msgid "Главное меню"
+msgid "Главное меню:"
 msgstr ""
 
 #: filterbot/apps/bot/handlers/common_menu.py:33
-msgid "Выберите язык интерфейса"
+msgid "Выберите язык интерфейса:"
 msgstr ""
 
 #: filterbot/apps/bot/handlers/common_menu.py:43
@@ -126,7 +123,7 @@ msgid "Фильтры не подключены"
 msgstr ""
 
 #: filterbot/apps/bot/handlers/common_menu.py:57
-msgid "Введите промокод"
+msgid "Введите промокод:"
 msgstr ""
 
 #: filterbot/apps/bot/handlers/common_menu.py:66
@@ -234,6 +231,12 @@ msgstr ""
 
 #: filterbot/apps/bot/markups/common_menu.py:24
 msgid "💬 Поддержка"
+msgstr ""
+
+#: filterbot/apps/bot/markups/common_menu.py:32
+#: filterbot/apps/bot/markups/common_menu.py:39
+#: filterbot/apps/bot/markups/filter_menu.py:110
+msgid "Главное меню"
 msgstr ""
 
 #: filterbot/apps/bot/markups/common_menu.py:46

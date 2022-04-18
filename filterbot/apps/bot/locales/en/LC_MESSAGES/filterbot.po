@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-18 17:18+0300\n"
+"POT-Creation-Date: 2022-04-18 18:28+0300\n"
 "PO-Revision-Date: 2022-04-13 15:11+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -121,15 +121,14 @@ msgid "Фильтр успешно создан"
 msgstr "The filter has been successfully created"
 
 #: filterbot/apps/bot/handlers/common_menu.py:28
-#: filterbot/apps/bot/markups/common_menu.py:32
-#: filterbot/apps/bot/markups/common_menu.py:39
-#: filterbot/apps/bot/markups/filter_menu.py:110
-msgid "Главное меню"
-msgstr "Main Menu"
+
+msgid "Главное меню:"
+msgstr "Main Menu:"
 
 #: filterbot/apps/bot/handlers/common_menu.py:33
-msgid "Выберите язык интерфейса"
-msgstr "Select the interface language"
+
+msgid "Выберите язык интерфейса:"
+msgstr "Select the interface language:"
 
 #: filterbot/apps/bot/handlers/common_menu.py:43
 msgid "Язык интерфейса изменен"
@@ -140,12 +139,13 @@ msgid "Фильтры не подключены"
 msgstr "Filters are not connected"
 
 #: filterbot/apps/bot/handlers/common_menu.py:57
-msgid "Введите промокод"
-msgstr ""
+
+msgid "Введите промокод:"
+msgstr "🔖 Enter a promo code:"
 
 #: filterbot/apps/bot/handlers/common_menu.py:66
 msgid "Промод {promocode} успешно активирован"
-msgstr ""
+msgstr "Promo code {promocode} successfully activated"
 
 #: filterbot/apps/bot/handlers/common_menu.py:74
 #: filterbot/apps/bot/handlers/connect_account.py:82
@@ -273,6 +273,12 @@ msgstr "🇺🇸Language (🇷🇺 Язык)"
 msgid "💬 Поддержка"
 msgstr "💬 Support"
 
+#: filterbot/apps/bot/markups/common_menu.py:32
+#: filterbot/apps/bot/markups/common_menu.py:39
+#: filterbot/apps/bot/markups/filter_menu.py:110
+msgid "Главное меню"
+msgstr "Main Menu"
+
 #: filterbot/apps/bot/markups/common_menu.py:46
 msgid "Да"
 msgstr "Yes"
@@ -345,4 +351,7 @@ msgstr "🚫 Error, cancellation of binding ... Try disabling Two-step authentic
 
 #~ msgid "Фильтры:"
 #~ msgstr "Filters:"
+
+#~ msgid "Введите промокод"
+#~ msgstr ""
 
