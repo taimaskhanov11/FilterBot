@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-13 16:05+0300\n"
+"POT-Creation-Date: 2022-04-18 17:18+0300\n"
 "PO-Revision-Date: 2022-04-13 15:11+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Выберите хранилище, куда будут пересылаться сообщения"
 msgstr "Select the storage where the messages will be forwarded to"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:129
+#: filterbot/apps/bot/handlers/chat_filters.py:130
 msgid ""
 "Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно "
 "должно пройти успешно все фильтры которые вы добавите."
@@ -66,7 +66,7 @@ msgstr ""
 "Select the filter type. In order for the message to reach your storage, "
 "it must pass successfully all the filters that you add."
 
-#: filterbot/apps/bot/handlers/chat_filters.py:143
+#: filterbot/apps/bot/handlers/chat_filters.py:144
 msgid ""
 "Ведите ключевые слова для фильтра через запятую. Например:\n"
 "подтвердить, забрать, вознаграждение, получить, claim, mint, rewards"
@@ -74,7 +74,7 @@ msgstr ""
 "Enter the keywords for the filter separated by commas. For example:\n"
 "confirm, collect, reward, receive, claim, mint, rewards"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:148
+#: filterbot/apps/bot/handlers/chat_filters.py:149
 msgid ""
 "Ведите Имена пользователей или их ID для фильтра через запятую. Например:"
 "\n"
@@ -84,19 +84,19 @@ msgstr ""
 " example:\n"
 "alicia, 1985947355, vsl48, alena_helpchina, 5036099266, 1985947355"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:200
+#: filterbot/apps/bot/handlers/chat_filters.py:201
 msgid "Фильтр id по именам пользователей\n"
 msgstr "Filter id by user names\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:211
+#: filterbot/apps/bot/handlers/chat_filters.py:212
 msgid "Фильтр id по админам:\n"
 msgstr "ID filter by admins:\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:219
+#: filterbot/apps/bot/handlers/chat_filters.py:220
 msgid "Ключевые слова для фильтрации:\n"
 msgstr "Keywords for filtering:\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:241
+#: filterbot/apps/bot/handlers/chat_filters.py:242
 msgid ""
 "Фильтр добавлен.\n"
 "Все данные фильтра:\n"
@@ -108,36 +108,49 @@ msgstr ""
 "{end_text}\n"
 "Do you want to add more?"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:251
+#: filterbot/apps/bot/handlers/chat_filters.py:252
 msgid "Ошибка. Проверьте правильность введенных данных."
 msgstr "Mistake. Check the correctness of the entered data."
 
-#: filterbot/apps/bot/handlers/chat_filters.py:256
+#: filterbot/apps/bot/handlers/chat_filters.py:257
 msgid "Данные успешно получены. Идет создание фильтра..."
 msgstr "The data was successfully received. The filter is being created..."
 
-#: filterbot/apps/bot/handlers/chat_filters.py:289
+#: filterbot/apps/bot/handlers/chat_filters.py:290
 msgid "Фильтр успешно создан"
 msgstr "The filter has been successfully created"
 
-#: filterbot/apps/bot/handlers/common_menu.py:23
-#: filterbot/apps/bot/markups/common_menu.py:31
-#: filterbot/apps/bot/markups/common_menu.py:38
-#: filterbot/apps/bot/markups/filter_menu.py:86
+#: filterbot/apps/bot/handlers/common_menu.py:28
+#: filterbot/apps/bot/markups/common_menu.py:32
+#: filterbot/apps/bot/markups/common_menu.py:39
+#: filterbot/apps/bot/markups/filter_menu.py:110
 msgid "Главное меню"
 msgstr "Main Menu"
 
-#: filterbot/apps/bot/handlers/common_menu.py:28
+#: filterbot/apps/bot/handlers/common_menu.py:33
 msgid "Выберите язык интерфейса"
 msgstr "Select the interface language"
 
-#: filterbot/apps/bot/handlers/common_menu.py:38
+#: filterbot/apps/bot/handlers/common_menu.py:43
 msgid "Язык интерфейса изменен"
 msgstr "Interface language changed"
 
-#: filterbot/apps/bot/handlers/common_menu.py:47
+#: filterbot/apps/bot/handlers/common_menu.py:52
 msgid "Фильтры не подключены"
 msgstr "Filters are not connected"
+
+#: filterbot/apps/bot/handlers/common_menu.py:57
+msgid "Введите промокод"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/common_menu.py:66
+msgid "Промод {promocode} успешно активирован"
+msgstr ""
+
+#: filterbot/apps/bot/handlers/common_menu.py:74
+#: filterbot/apps/bot/handlers/connect_account.py:82
+msgid "Неправильный ввод"
+msgstr "Incorrect input"
 
 #: filterbot/apps/bot/handlers/connect_account.py:32
 msgid "Ваш аккаунт уже подключен и запущен"
@@ -177,10 +190,6 @@ msgstr ""
 "then tg reset the code \n"
 "For example:\n"
 "code43123"
-
-#: filterbot/apps/bot/handlers/connect_account.py:82
-msgid "Неправильный ввод"
-msgstr "Incorrect input"
 
 #: filterbot/apps/bot/handlers/connect_account.py:89
 msgid ""
@@ -253,18 +262,22 @@ msgid "📈 Статистика"
 msgstr "📈 Statistics"
 
 #: filterbot/apps/bot/markups/common_menu.py:23
+msgid "🔖 Ввести промокод"
+msgstr "🔖 Enter a promo code"
+
+#: filterbot/apps/bot/markups/common_menu.py:24
 msgid "🇷🇺Язык (🇺🇸 language)"
 msgstr "🇺🇸Language (🇷🇺 Язык)"
 
-#: filterbot/apps/bot/markups/common_menu.py:23
+#: filterbot/apps/bot/markups/common_menu.py:24
 msgid "💬 Поддержка"
 msgstr "💬 Support"
 
-#: filterbot/apps/bot/markups/common_menu.py:45
+#: filterbot/apps/bot/markups/common_menu.py:46
 msgid "Да"
 msgstr "Yes"
 
-#: filterbot/apps/bot/markups/common_menu.py:46
+#: filterbot/apps/bot/markups/common_menu.py:47
 msgid "Нет"
 msgstr "No"
 
@@ -280,29 +293,29 @@ msgstr "🔧 Choose a chat for the filter"
 msgid "↩ Главное меню"
 msgstr "↩ Main menu"
 
-#: filterbot/apps/bot/markups/filter_menu.py:33
+#: filterbot/apps/bot/markups/filter_menu.py:32
 msgid "Удалить"
 msgstr "Remove"
 
-#: filterbot/apps/bot/markups/filter_menu.py:34
-#: filterbot/apps/bot/markups/filter_menu.py:51
-#: filterbot/apps/bot/markups/filter_menu.py:68
+#: filterbot/apps/bot/markups/filter_menu.py:33
+#: filterbot/apps/bot/markups/filter_menu.py:50
+#: filterbot/apps/bot/markups/filter_menu.py:67
 msgid "Назад"
 msgstr "Back"
 
-#: filterbot/apps/bot/markups/filter_menu.py:83
-msgid "✍ Добавить По ключевым словам"
-msgstr "✍ Add By Keywords"
-
-#: filterbot/apps/bot/markups/filter_menu.py:84
-msgid "👥 Добавить Фильтр по пользователям"
-msgstr "👥 Add a Filter by users"
-
-#: filterbot/apps/bot/markups/filter_menu.py:85
+#: filterbot/apps/bot/markups/filter_menu.py:104
 msgid "👤 Добавить Фильтр по админам"
 msgstr "👤 Add a Filter by admins"
 
-#: filterbot/apps/bot/markups/filter_menu.py:87
+#: filterbot/apps/bot/markups/filter_menu.py:107
+msgid "✍ Добавить По ключевым словам"
+msgstr "✍ Add By Keywords"
+
+#: filterbot/apps/bot/markups/filter_menu.py:108
+msgid "👥 Добавить Фильтр по пользователям"
+msgstr "👥 Add a Filter by users"
+
+#: filterbot/apps/bot/markups/filter_menu.py:111
 msgid "✅ Завершить создание"
 msgstr "✅ Finish creating"
 
@@ -324,15 +337,12 @@ msgid ""
 "аутентификацию"
 msgstr "🚫 Error, cancellation of binding ... Try disabling Two-step authentication"
 
-#: filterbot/db/models.py:67
-msgid "Чат: "
-msgstr "Chat: "
+#~ msgid "Чат: "
+#~ msgstr "Chat: "
 
-#: filterbot/db/models.py:68
-msgid "Хранилище: "
-msgstr "Storage: "
+#~ msgid "Хранилище: "
+#~ msgstr "Storage: "
 
-#: filterbot/db/models.py:69
-msgid "Фильтры:"
-msgstr "Filters:"
+#~ msgid "Фильтры:"
+#~ msgstr "Filters:"
 

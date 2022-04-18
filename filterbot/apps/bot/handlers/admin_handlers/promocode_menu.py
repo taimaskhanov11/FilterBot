@@ -46,7 +46,7 @@ async def create_promocode_name(message: types.Message, state: FSMContext):
 
 async def create_promocode_limit(message: types.Message, state: FSMContext):
     await state.update_data(limit=message.text)
-    await message.answer(f"Введите промокод", reply_markup=ReplyKeyboardRemove())
+    await message.answer(f"Введите промокод\n Например\npromocode1234", reply_markup=ReplyKeyboardRemove())
     await CreatePromoCode.finish.set()
 
 
