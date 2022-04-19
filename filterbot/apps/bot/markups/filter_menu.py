@@ -29,11 +29,11 @@ def current_chat_filters(chats: list[Chat]):
 
 def get_chat(chat_pk):
     keyboard = [
-        ((_("Добавить пользователя"), chat_cb.new(chat_id=chat_pk, action="add_user"),),
-         (_("Удалить пользователя"), chat_cb.new(chat_id=chat_pk, action="delete_user"),),),
-        ((_("Удалить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="delete_word"),),
-         (_("Добавить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="add_word"),),),
-        ((_("Удалить фильтр"), chat_cb.new(chat_id=chat_pk, action="delete"),),),
+        ((_("👥 Добавить пользователя"), chat_cb.new(chat_id=chat_pk, action="add_user"),),
+         (_("👥 Удалить пользователя"), chat_cb.new(chat_id=chat_pk, action="delete_user"),),),
+        ((_("✍ Удалить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="delete_word"),),
+         (_("✍ Добавить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="add_word"),),),
+        ((_("❌ Удалить фильтр"), chat_cb.new(chat_id=chat_pk, action="delete"),),),
         ((_("Назад"), "current_chat_filters"),),
     ]
     return get_inline_keyboard(keyboard)

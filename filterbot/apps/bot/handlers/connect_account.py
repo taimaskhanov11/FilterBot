@@ -34,10 +34,12 @@ async def connect_account(call: types.CallbackQuery):
 
     await call.message.answer(
         _(
-            "Для подключения аккаунта отключите Двухэтапную аутентификацию. Cоздайте приложение"
-            " по ссылке https://my.telegram.org/auth?to=apps и сохраните api_id, api_hash.\n"
-            "Отправьте сюда ваши данные в формате api_id:api_hash:номер_телефона. Пример\n"
-            "123445:asdf31234fads:+79749599419"
+            "Для подключения аккаунта:\n"
+            "1) Отключите двухэтапную аутентификацию (если включена).\n"
+            "2) Cоздайте приложение по ссылке https://my.telegram.org/auth?to=apps\n"
+            "3) Сохраните свои api_id, api_hash.\n"
+            "4) Отправьте боту Ваши данные в следующем формате: api_id:api_hash:номер_телефона.\n"
+            "Пример корректного ввода:\n123456:ababa123455abab:+79687878788"
         ), reply_markup=markups.common_menu.menu_button()
     )
     await ConnectAccount.first()

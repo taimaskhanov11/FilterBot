@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-19 13:43+0300\n"
+"POT-Creation-Date: 2022-04-19 13:53+0300\n"
 "PO-Revision-Date: 2022-04-13 15:11+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -151,7 +151,6 @@ msgstr ""
 "promocode1234"
 
 #: filterbot/apps/bot/handlers/common_menu.py:82
-
 msgid ""
 "✅ Промокод {promocode} успешно активирован.\n"
 "Количество привязок по админам: {count}"
@@ -164,7 +163,7 @@ msgid "Уже использован"
 msgstr "Already used"
 
 #: filterbot/apps/bot/handlers/common_menu.py:91
-#: filterbot/apps/bot/handlers/connect_account.py:82
+#: filterbot/apps/bot/handlers/connect_account.py:84
 msgid "Неправильный ввод"
 msgstr "Incorrect input"
 
@@ -173,27 +172,33 @@ msgid "Ваш аккаунт уже подключен и запущен"
 msgstr "Your account is already connected and running"
 
 #: filterbot/apps/bot/handlers/connect_account.py:36
-msgid ""
-"Для подключения аккаунта отключите Двухэтапную аутентификацию. Cоздайте "
-"приложение по ссылке https://my.telegram.org/auth?to=apps и сохраните "
-"api_id, api_hash.\n"
-"Отправьте сюда ваши данные в формате api_id:api_hash:номер_телефона. "
-"Пример\n"
-"123445:asdf31234fads:+79749599419"
-msgstr ""
-"To connect an account, disable Two-step authentication. Create an  "
-"application by the link https://my.telegram.org/auth ?to=apps and save "
-"api_id, api_hash.\n"
-"Send your data here in the format api_id:api_hash:phone number. Example\n"
-"123445:asdf31234fads:+79749599419"
 
-#: filterbot/apps/bot/handlers/connect_account.py:56
+msgid ""
+"Для подключения аккаунта:\n"
+"1) Отключите двухэтапную аутентификацию (если включена).\n"
+"2) Cоздайте приложение по ссылке https://my.telegram.org/auth?to=apps\n"
+"3) Сохраните свои api_id, api_hash.\n"
+"4) Отправьте боту Ваши данные в следующем формате: "
+"api_id:api_hash:номер_телефона.\n"
+"Пример корректного ввода:\n"
+"123456:ababa123455abab:+79687878788"
+msgstr ""
+"To connect an account:\n"
+"1) Disable two-step authentication (if enabled).\n"
+"2) Create an application using the link https://my.telegram.org/auth ?to=apps\n"
+"3) Save your api_id, api_hash.\n"
+"4) Send your data to the bot in the following format: "
+"api_id:api_hash:phone number.\n"
+"Example of correct input:\n"
+"123456:ababa123455abab:+79687878788"
+
+#: filterbot/apps/bot/handlers/connect_account.py:58
 msgid "✅ Бот успешно подключен, ожидайте пару секунд и нажмите кнопку ниже"
 msgstr ""
 "✅ The bot is successfully connected, wait a couple of seconds and click "
 "the button below"
 
-#: filterbot/apps/bot/handlers/connect_account.py:75
+#: filterbot/apps/bot/handlers/connect_account.py:77
 msgid ""
 "Введите код подтверждения из сообщения Телеграмм с префиксом code, в "
 "только таком виде code<ваш код>. Если отправить просто цифры то тг "
@@ -207,7 +212,7 @@ msgstr ""
 "For example:\n"
 "code43123"
 
-#: filterbot/apps/bot/handlers/connect_account.py:89
+#: filterbot/apps/bot/handlers/connect_account.py:91
 msgid ""
 "❌ Неправильный ввод код.\n"
 "Пожалуйста повторите попытку создания с первого этапа и введите код с "
@@ -221,7 +226,7 @@ msgstr ""
 "For example:\n"
 "code43123"
 
-#: filterbot/apps/bot/handlers/connect_account.py:97
+#: filterbot/apps/bot/handlers/connect_account.py:99
 msgid ""
 "Код получен, ожидайте завершения\n"
 "Если все прошло успешно Вам придет сообщение в личный чат."
@@ -229,11 +234,11 @@ msgstr ""
 "Code received, wait for completion\n"
 "If everything went well, you will receive a message in a personal chat."
 
-#: filterbot/apps/bot/handlers/connect_account.py:102
+#: filterbot/apps/bot/handlers/connect_account.py:104
 msgid "Вы точно хотите отвязать аккаунт?"
 msgstr "Are you sure you want to unlink your account?"
 
-#: filterbot/apps/bot/handlers/connect_account.py:113
+#: filterbot/apps/bot/handlers/connect_account.py:115
 msgid ""
 "✅ Аккаунт успешно отвязан\n"
 "Главное меню"
@@ -241,7 +246,7 @@ msgstr ""
 "✅ Account successfully unlinked\n"
 "Main menu"
 
-#: filterbot/apps/bot/handlers/connect_account.py:115
+#: filterbot/apps/bot/handlers/connect_account.py:117
 msgid ""
 "Отвязка аккаунта отменена\n"
 "Главное меню"
@@ -262,7 +267,6 @@ msgid "Введите id пользователя для добавления"
 msgstr "Enter the user ID to add"
 
 #: filterbot/apps/bot/handlers/edit_chat_filters.py:80
-
 msgid "Не удалось добавить пользователя"
 msgstr "Failed to add user"
 
@@ -303,7 +307,6 @@ msgid "👤 Мой профиль"
 msgstr "👤 My Profile"
 
 #: filterbot/apps/bot/markups/common_menu.py:21
-
 msgid "⚙️ Настройки фильтров"
 msgstr "⚙️ Chat Filter Settings"
 
@@ -370,8 +373,9 @@ msgid "✍ Добавить ключевое слово"
 msgstr "✍ Add a keyword"
 
 #: filterbot/apps/bot/markups/filter_menu.py:36
-msgid "Удалить фильтр"
-msgstr "Remove Filter"
+
+msgid "❌ Удалить фильтр"
+msgstr "❌ Remove Filter"
 
 #: filterbot/apps/bot/markups/filter_menu.py:37
 #: filterbot/apps/bot/markups/filter_menu.py:54
