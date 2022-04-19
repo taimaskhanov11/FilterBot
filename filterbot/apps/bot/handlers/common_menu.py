@@ -39,8 +39,7 @@ async def profile(call: types.CallbackQuery, user: User, state: FSMContext):
 
 async def support(call: types.CallbackQuery, user: User, state: FSMContext):
     await state.finish()
-    await call.message.edit_text(markdown.hbold(_("По всем вопросам пишите @Les0k")), "html",
-                                 reply_markup=common_menu.start_menu(user.user_id))
+    await call.message.answer(markdown.hbold(_("По всем вопросам пишите: @Les0k")), "html")
 
 
 async def language(call: types.CallbackQuery, user: User):
@@ -68,9 +67,13 @@ async def statistic(call: types.CallbackQuery, state: FSMContext):
 
 
 async def current_promocode(call: types.CallbackQuery, user: User, state: FSMContext):
-    await state.finish()
-    promocode = await PromoCode.get(user=user).select_related("user")
-    await call.message.answer(str(promocode), reply_markup=ReplyKeyboardRemove())
+    try:
+        await state.finish()
+        promocode = await PromoCode.get(user=user).select_related("user")
+        await call.message.answer(str(promocode), reply_markup=ReplyKeyboardRemove())
+    except Exception as e:
+        logger.warning(e)
+        await call.message.answer(_("Нет активного промокода\nПо всем вопросам пишите: @Les0k"))
 
 
 async def input_promocode(call: types.CallbackQuery, state: FSMContext):

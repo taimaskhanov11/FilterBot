@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import typing
 from pathlib import Path
 from typing import Optional
@@ -67,6 +68,6 @@ class Config(BaseModel):
 
 I18N_DOMAIN = "filterbot"
 LOCALES_DIR = BASE_DIR / "filterbot/apps/bot/locales"
-
+TZ = datetime.timezone(datetime.timedelta(hours=3))
 config_file = parse_config()
 config = Config(**load_yaml(config_file or "config.yml"))

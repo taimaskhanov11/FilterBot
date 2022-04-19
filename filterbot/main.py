@@ -18,7 +18,8 @@ from filterbot.apps.controller.controller import init_controllers
 from filterbot.config.config import config, config_file
 from filterbot.config.setting_logging import init_logging
 from filterbot.db.db_main import init_tortoise
-from filterbot.loader import bot, dp
+from filterbot.db.utils.backup import making_backup
+from filterbot.loader import bot, dp, scheduler
 
 
 async def set_commands(bot: Bot):
@@ -80,7 +81,9 @@ async def main():
     # controller = Controller(**config.controller.dict())
     # config.controller.controller = controller
     # asyncio.create_task(controller.start())
-    # scheduler.start()
+    scheduler.add_job(making_backup, "interval", hours=5)
+    scheduler.start()
+    logger.info(scheduler.get_jobs()[0])
     await dp.skip_updates()
     await dp.start_polling()
 

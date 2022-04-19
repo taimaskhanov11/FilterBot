@@ -2,3 +2,4 @@
 logs
 config_dev.yml
 *.session
+backup

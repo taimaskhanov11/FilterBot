@@ -7,6 +7,17 @@ from tortoise import fields, models
 
 from filterbot.loader import _
 
+__all__ = (
+    "Account",
+    "User",
+    "PromoCode",
+    "ChatStorage",
+    "Chat",
+    "MessageFilter",
+    "UserFilter",
+    "WordFilter",
+)
+
 
 class Account(models.Model):
     api_id = fields.BigIntField(unique=True)
