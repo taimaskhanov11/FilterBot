@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-19 13:53+0300\n"
+"POT-Creation-Date: 2022-04-19 17:43+0300\n"
 "PO-Revision-Date: 2022-04-13 15:11+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,35 +18,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:39
+#: filterbot/apps/bot/handlers/chat_filters.py:40
 msgid "Привяжите аккаунт"
 msgstr "Link an account"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:42
+#: filterbot/apps/bot/handlers/chat_filters.py:43
 msgid "Для настройки фильтров возобновите работу бота"
 msgstr "To configure filters, resume the bot"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:45
+#: filterbot/apps/bot/handlers/chat_filters.py:46
 msgid "Выберите функцию"
 msgstr "Select a function"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:53
+#: filterbot/apps/bot/handlers/chat_filters.py:54
 msgid "Текущие чаты с фильтрами"
 msgstr "Current chats with filters"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:72
+#: filterbot/apps/bot/handlers/chat_filters.py:73
 msgid "Вы действительно хотите удалить фильтр чата?"
 msgstr "Do you really want to remove the chat filter?"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:83
+#: filterbot/apps/bot/handlers/chat_filters.py:87
 msgid "Чат {title} успешно удален"
 msgstr "Chat {title} successfully deleted"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:85
+#: filterbot/apps/bot/handlers/chat_filters.py:89
 msgid "Удаление отменено"
 msgstr "Deletion canceled"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:98
+#: filterbot/apps/bot/handlers/chat_filters.py:102
+
+msgid "Нет активного промокода"
+msgstr "There is no active promo code"
+
+#: filterbot/apps/bot/handlers/chat_filters.py:107
+msgid "Достигнуто максимальное количество фильтров"
+msgstr "The maximum number of filters has been reached"
+
+#: filterbot/apps/bot/handlers/chat_filters.py:112
 msgid ""
 "Ваши текущие чаты без фильтров. Выберите чат из списка для создания "
 "фильтра:\n"
@@ -54,11 +63,11 @@ msgstr ""
 "Your current chats are without filters. Select a chat from the list to "
 "create a filter:\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:117
+#: filterbot/apps/bot/handlers/chat_filters.py:131
 msgid "Выберите хранилище, куда будут пересылаться сообщения"
 msgstr "Select the storage where the messages will be forwarded to"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:132
+#: filterbot/apps/bot/handlers/chat_filters.py:148
 msgid ""
 "Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно "
 "должно пройти успешно все фильтры которые вы добавите."
@@ -66,7 +75,7 @@ msgstr ""
 "Select the filter type. In order for the message to reach your storage, "
 "it must pass successfully all the filters that you add."
 
-#: filterbot/apps/bot/handlers/chat_filters.py:146
+#: filterbot/apps/bot/handlers/chat_filters.py:162
 msgid ""
 "Ведите ключевые слова для фильтра через запятую. Например:\n"
 "подтвердить, забрать, вознаграждение, получить, claim, mint, rewards"
@@ -74,7 +83,7 @@ msgstr ""
 "Enter the keywords for the filter separated by commas. For example:\n"
 "confirm, collect, reward, receive, claim, mint, rewards"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:151
+#: filterbot/apps/bot/handlers/chat_filters.py:167
 msgid ""
 "Ведите Имена пользователей или их ID для фильтра через запятую. Например:"
 "\n"
@@ -84,19 +93,23 @@ msgstr ""
 " example:\n"
 "alicia, 1985947355, vsl48, alena_helpchina, 5036099266, 1985947355"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:203
+#: filterbot/apps/bot/handlers/chat_filters.py:220
 msgid "Фильтр id по именам пользователей\n"
 msgstr "Filter id by user names\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:214
+#: filterbot/apps/bot/handlers/chat_filters.py:233
 msgid "Фильтр id по админам:\n"
 msgstr "ID filter by admins:\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:222
+#: filterbot/apps/bot/handlers/chat_filters.py:241
 msgid "Ключевые слова для фильтрации:\n"
 msgstr "Keywords for filtering:\n"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:244
+#: filterbot/apps/bot/handlers/chat_filters.py:262
+msgid "Лимит запроса по админам исчерпан"
+msgstr "The request limit for admins has been exhausted"
+
+#: filterbot/apps/bot/handlers/chat_filters.py:264
 msgid ""
 "Фильтр добавлен.\n"
 "Все данные фильтра:\n"
@@ -108,15 +121,15 @@ msgstr ""
 "{end_text}\n"
 "Do you want to add more?"
 
-#: filterbot/apps/bot/handlers/chat_filters.py:254
+#: filterbot/apps/bot/handlers/chat_filters.py:274
 msgid "Ошибка. Проверьте правильность введенных данных."
 msgstr "Mistake. Check the correctness of the entered data."
 
-#: filterbot/apps/bot/handlers/chat_filters.py:259
+#: filterbot/apps/bot/handlers/chat_filters.py:279
 msgid "Данные успешно получены. Идет создание фильтра..."
 msgstr "The data was successfully received. The filter is being created..."
 
-#: filterbot/apps/bot/handlers/chat_filters.py:292
+#: filterbot/apps/bot/handlers/chat_filters.py:312
 msgid "Фильтр успешно создан"
 msgstr "The filter has been successfully created"
 
@@ -125,22 +138,32 @@ msgid "Главное меню:"
 msgstr "Main Menu:"
 
 #: filterbot/apps/bot/handlers/common_menu.py:42
-msgid "По всем вопросам пишите @Les0k"
-msgstr "For all questions, write to @Les0k"
 
-#: filterbot/apps/bot/handlers/common_menu.py:48
+msgid "По всем вопросам пишите: @Les0k"
+msgstr "For all questions, write to: @Les0k"
+
+#: filterbot/apps/bot/handlers/common_menu.py:47
 msgid "Выберите язык интерфейса:"
 msgstr "Select the interface language:"
 
-#: filterbot/apps/bot/handlers/common_menu.py:58
+#: filterbot/apps/bot/handlers/common_menu.py:57
 msgid "Язык интерфейса изменен"
 msgstr "Interface language changed"
 
-#: filterbot/apps/bot/handlers/common_menu.py:67
+#: filterbot/apps/bot/handlers/common_menu.py:66
 msgid "Фильтры не подключены"
 msgstr "Filters are not connected"
 
-#: filterbot/apps/bot/handlers/common_menu.py:72
+#: filterbot/apps/bot/handlers/common_menu.py:76
+
+msgid ""
+"Нет активного промокода\n"
+"По всем вопросам пишите: @Les0k"
+msgstr ""
+"There is no active promo code\n"
+"For all questions, write to: @Les0k"
+
+#: filterbot/apps/bot/handlers/common_menu.py:81
 msgid ""
 "Введите промокод\n"
 "Например:\n"
@@ -150,19 +173,22 @@ msgstr ""
 "For example:\n"
 "promocode1234"
 
-#: filterbot/apps/bot/handlers/common_menu.py:82
+#: filterbot/apps/bot/handlers/common_menu.py:91
+
 msgid ""
 "✅ Промокод {promocode} успешно активирован.\n"
-"Количество привязок по админам: {count}"
+"Количество привязок по админам: {admin}\n"
+"Количество фильтров {filter}"
 msgstr ""
 "✅ Promo code {promocode} has been successfully activated.\n"
-"Number of bindings by admins: {count}"
+"Number of bindings by admins: {admin}\n"
+"Number of filters {filter}"
 
-#: filterbot/apps/bot/handlers/common_menu.py:89
+#: filterbot/apps/bot/handlers/common_menu.py:100
 msgid "Уже использован"
 msgstr "Already used"
 
-#: filterbot/apps/bot/handlers/common_menu.py:91
+#: filterbot/apps/bot/handlers/common_menu.py:102
 #: filterbot/apps/bot/handlers/connect_account.py:84
 msgid "Неправильный ввод"
 msgstr "Incorrect input"
@@ -172,7 +198,6 @@ msgid "Ваш аккаунт уже подключен и запущен"
 msgstr "Your account is already connected and running"
 
 #: filterbot/apps/bot/handlers/connect_account.py:36
-
 msgid ""
 "Для подключения аккаунта:\n"
 "1) Отключите двухэтапную аутентификацию (если включена).\n"
@@ -185,7 +210,8 @@ msgid ""
 msgstr ""
 "To connect an account:\n"
 "1) Disable two-step authentication (if enabled).\n"
-"2) Create an application using the link https://my.telegram.org/auth ?to=apps\n"
+"2) Create an application using the link https://my.telegram.org/auth "
+"?to=apps\n"
 "3) Save your api_id, api_hash.\n"
 "4) Send your data to the bot in the following format: "
 "api_id:api_hash:phone number.\n"
@@ -319,24 +345,29 @@ msgid "🔖 Ввести промокод"
 msgstr "🔖 Enter a promo code"
 
 #: filterbot/apps/bot/markups/common_menu.py:24
+
+msgid "🀄️ Текущий промокод"
+msgstr "🀄️ Current promo code"
+
+#: filterbot/apps/bot/markups/common_menu.py:25
 msgid "🇷🇺  Язык(🇺🇸 language)"
 msgstr "🇺🇸  Language (🇷🇺 Язык)"
 
-#: filterbot/apps/bot/markups/common_menu.py:24
+#: filterbot/apps/bot/markups/common_menu.py:25
 msgid "💬 Поддержка"
 msgstr "💬 Support"
 
-#: filterbot/apps/bot/markups/common_menu.py:32
-#: filterbot/apps/bot/markups/common_menu.py:39
-#: filterbot/apps/bot/markups/filter_menu.py:115
+#: filterbot/apps/bot/markups/common_menu.py:33
+#: filterbot/apps/bot/markups/common_menu.py:40
+#: filterbot/apps/bot/markups/filter_menu.py:106
 msgid "Главное меню"
 msgstr "Main Menu"
 
-#: filterbot/apps/bot/markups/common_menu.py:46
+#: filterbot/apps/bot/markups/common_menu.py:47
 msgid "Да"
 msgstr "Yes"
 
-#: filterbot/apps/bot/markups/common_menu.py:47
+#: filterbot/apps/bot/markups/common_menu.py:48
 msgid "Нет"
 msgstr "No"
 
@@ -353,27 +384,22 @@ msgid "↩ Главное меню"
 msgstr "↩ Main menu"
 
 #: filterbot/apps/bot/markups/filter_menu.py:32
-
 msgid "👥 Добавить пользователя"
 msgstr "👥 Add a user"
 
 #: filterbot/apps/bot/markups/filter_menu.py:33
-
 msgid "👥 Удалить пользователя"
 msgstr "👥 Delete User"
 
 #: filterbot/apps/bot/markups/filter_menu.py:34
-
 msgid "✍ Удалить ключевое слово"
 msgstr "✍ Delete a keyword"
 
 #: filterbot/apps/bot/markups/filter_menu.py:35
-
 msgid "✍ Добавить ключевое слово"
 msgstr "✍ Add a keyword"
 
 #: filterbot/apps/bot/markups/filter_menu.py:36
-
 msgid "❌ Удалить фильтр"
 msgstr "❌ Remove Filter"
 
@@ -383,19 +409,19 @@ msgstr "❌ Remove Filter"
 msgid "Назад"
 msgstr "Back"
 
-#: filterbot/apps/bot/markups/filter_menu.py:109
+#: filterbot/apps/bot/markups/filter_menu.py:100
 msgid "👤 Добавить Фильтр по админам"
 msgstr "👤 Add a Filter by admins"
 
-#: filterbot/apps/bot/markups/filter_menu.py:112
+#: filterbot/apps/bot/markups/filter_menu.py:103
 msgid "✍ Добавить По ключевым словам"
 msgstr "✍ Add By Keywords"
 
-#: filterbot/apps/bot/markups/filter_menu.py:113
+#: filterbot/apps/bot/markups/filter_menu.py:104
 msgid "👥 Добавить Фильтр по пользователям"
 msgstr "👥 Add a Filter by users"
 
-#: filterbot/apps/bot/markups/filter_menu.py:116
+#: filterbot/apps/bot/markups/filter_menu.py:107
 msgid "✅ Завершить создание"
 msgstr "✅ Finish creating"
 
