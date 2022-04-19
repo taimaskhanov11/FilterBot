@@ -52,8 +52,9 @@ class MethodController(BaseModel):
         return ids
 
     async def message_prepare(self, chat_title, message: patched.Message):
-        user: types.User = await self.client.get_entity(message.from_id.user_id)
-        message.text = (f"#@{user.username}\n"
+        logger.trace(message.from_id)
+        user_info = f"#@{(await self.client.get_entity(message.from_id.user_id)).username}" if message.from_id else ""
+        message.text = (f"{user_info}\n"
                         f"{message.text}\n"
                         f"/{markdown.hlink(chat_title, f'https://t.me/c/{message.peer_id.channel_id}/{message.id}')}")
         return message
@@ -70,12 +71,12 @@ class MethodController(BaseModel):
 
             statistic_storage.incr(f"{self.user_id}_all_message")
             statistic_storage.incr("all_message")
-
+            # logger.exception(message.text)
             logger.debug(f"{self}|Новое сообщение {message.text}|{message.chat_id=}|{message.from_id=}.")
             chat = self.chats.get(message.chat_id, DummyFilter())
             if await chat.message_check(message):
                 logger.success(f"{self}|{message} прошел проверку")
-
+                logger.trace(self.user_id)
                 statistic_storage.incr(f"{self.user_id}_filter_message")
                 statistic_storage.incr("filter_message")
 

@@ -11,6 +11,7 @@ from filterbot.apps.bot.handlers.admin_handlers.promocode_menu import register_p
 from filterbot.apps.bot.handlers.chat_filters import register_chat_filter_handlers
 from filterbot.apps.bot.handlers.common_menu import register_common_handlers
 from filterbot.apps.bot.handlers.connect_account import register_connect_account_handlers
+from filterbot.apps.bot.handlers.edit_chat_filters import register_edit_chat_filter_handlers
 from filterbot.apps.bot.handlers.errors_handlers import register_error_handlers
 from filterbot.apps.bot.utils.locales_helpers import update_users_locales
 from filterbot.apps.controller.controller import init_controllers
@@ -64,6 +65,7 @@ async def main():
     # common
     register_connect_account_handlers(dp)
     register_chat_filter_handlers(dp)
+    register_edit_chat_filter_handlers(dp)
     register_error_handlers(dp)
     # Регистрация middleware
 

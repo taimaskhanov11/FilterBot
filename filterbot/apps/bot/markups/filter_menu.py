@@ -29,7 +29,11 @@ def current_chat_filters(chats: list[Chat]):
 
 def get_chat(chat_pk):
     keyboard = [
-        ((_("Удалить"), chat_cb.new(chat_id=chat_pk, action="delete"),),),
+        ((_("Добавить пользователя"), chat_cb.new(chat_id=chat_pk, action="add_user"),),
+         (_("Удалить пользователя"), chat_cb.new(chat_id=chat_pk, action="delete_user"),),),
+        ((_("Удалить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="delete_word"),),
+         (_("Добавить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="add_word"),),),
+        ((_("Удалить фильтр"), chat_cb.new(chat_id=chat_pk, action="delete"),),),
         ((_("Назад"), "current_chat_filters"),),
     ]
     return get_inline_keyboard(keyboard)
@@ -97,9 +101,10 @@ async def create_chat_filter(user: User, again=False):
     admin_filter = ()
     if pr:
         pr = pr[0]
-        print(pr)
+        # print(pr)
+        # todo 4/19/2022 12:14 PM taima: большая нагрузка
         current_limit = await get_admin_filters_count(user.user_id)
-        print(current_limit)
+        # print(current_limit)
         if current_limit < pr.limit:
             admin_filter = ((_("👤 Добавить Фильтр по админам"), filter_cb.new(type="admin")),)
 

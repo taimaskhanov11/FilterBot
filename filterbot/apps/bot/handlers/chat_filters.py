@@ -78,6 +78,8 @@ async def delete_chat_finish(call: types.CallbackQuery, state: FSMContext):
     if call.data == "yes":
         data = await state.get_data()
         chat = await Chat.delete_chat(data["delete_chat_id"])
+        controller: Controller = controllers.get(call.from_user.id)
+        del controller.chats[chat.chat_id]
         answer = _("Чат {title} успешно удален").format(title=chat.title)
     else:
         answer = _("Удаление отменено")
@@ -243,7 +245,7 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
               # f"{pprint.pformat(data['filters'])}"
               f"\nХотите добавить еще?").format(end_text=end_text),
             "html",
-            reply_markup= await markups.filter_menu.create_chat_filter(user, again=True),
+            reply_markup=await markups.filter_menu.create_chat_filter(user, again=True),
         )
 
         await CreateChat.filter_input.set()
@@ -279,9 +281,9 @@ async def create_chat_filter_finish(call: types.CallbackQuery, user: User, state
         chat_storage=chat_storage,
     )
     await chat.message_filter.fetch_related("user_filters", "word_filter")
-    print(chat.message_filter.user_filters)
-    print(chat.message_filter.word_filter)
-    print(bool(chat.message_filter.user_filters))
+    # print(chat.message_filter.user_filters)
+    # print(chat.message_filter.word_filter)
+    # print(bool(chat.message_filter.user_filters))
     if not controller.chats:
         controller.chats = {}
     controller.chats[chat.chat_id] = chat
@@ -303,7 +305,7 @@ def register_chat_filter_handlers(dp: Dispatcher):
     callback(delete_chat_finish, state=DeleteChat.delete)
 
     # create chat filter
-    callback(create_chat_choice, UserFilter(), text="create_chat_choice")
+    callback(create_chat_choice, UserFilter(), text="create_chat_choice", state="*")
     callback(create_chat_storage, chat_cb.filter(action="create"))
     callback(create_chat_filter_type, UserFilter(), chat_cb.filter(action="create"), state=CreateChat.filter_type)
     callback(create_chat_filter_input, UserFilter(), filter_cb.filter(), state=CreateChat.filter_input)

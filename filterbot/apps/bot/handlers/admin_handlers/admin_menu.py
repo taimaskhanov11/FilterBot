@@ -5,6 +5,7 @@ from loguru import logger
 from filterbot.apps.bot import markups
 from filterbot.apps.bot.callback_data.chat_filters_callback import user_cd
 from filterbot.apps.bot.utils.statistic import statistic_storage
+from filterbot.config.config import config
 from filterbot.db.models import User, Account, Chat, MessageFilter
 
 
@@ -52,11 +53,11 @@ async def admin_statistic(call: types.CallbackQuery, state: FSMContext):
 def register_admin_menu(dp: Dispatcher):
     callback = dp.register_callback_query_handler
     message = dp.register_message_handler
-    message(admin_start, commands="admin", state="*")
-    callback(admin_start, text="admin", state="*")
+    message(admin_start, user_id=config.bot.admins, commands="admin", state="*")
+    callback(admin_start, user_id=config.bot.admins, text="admin", state="*")
 
-    callback(admin_statistic, text="admin_statistic", state="*")
-    callback(current_users, text="current_users", state="*")
+    callback(admin_statistic, user_id=config.bot.admins, text="admin_statistic", state="*")
+    callback(current_users, user_id=config.bot.admins, text="current_users", state="*")
     # callback(admin_statistic, user_id=config.bot.admins, text="admin_statistic", state="*")
 
-    callback(user_statistics, user_cd.filter(), state="*")
+    callback(user_statistics, user_cd.filter(), user_id=config.bot.admins, state="*")

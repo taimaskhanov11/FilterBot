@@ -15,19 +15,42 @@ class CreatePromoCode(StatesGroup):
     finish = State()
 
 
+class DeletePromoCode(StatesGroup):
+    delete = State()
+
+
 async def current_promocodes(call: types.CallbackQuery, state: FSMContext):
     await state.finish()
     promocodes = await PromoCode.all()
-    await call.message.answer("Текущие промокоды",
-                              reply_markup=markups.promocode_menu.current_promocodes(promocodes))
+    await call.message.answer("Текущие промокоды", reply_markup=markups.promocode_menu.current_promocodes(promocodes))
     # await CreatePromoCode.name.set()
 
 
 async def get_promocode(call: types.CallbackQuery, state: FSMContext, callback_data: dict[str, str]):
     pk = callback_data.get("id")
     promocode = await PromoCode.get(pk=pk).select_related("user")
-    await call.message.answer(f"{promocode}")
+    await call.message.answer(f"{promocode}", reply_markup=markups.promocode_menu.get_promocode(promocode.pk))
     await state.finish()
+
+
+async def delete_promocode(call: types.CallbackQuery, state: FSMContext, callback_data: dict[str, str]):
+    pk = callback_data.get("id")
+    await state.update_data(delete_promocode_pk=pk)
+    await call.message.answer(f"Вы действительно хотите удалить прокомокод?", reply_markup=markups.common_menu.choice())
+    await DeletePromoCode.delete.set()
+
+
+async def delete_promocode_complete(call: types.CallbackQuery, state: FSMContext):
+    if call.data == "yes":
+        data = await state.get_data()
+        pk = data.get("delete_promocode_pk")
+        promocode = await PromoCode.get(pk=pk).select_related("user")
+        await promocode.delete()
+        answer = f"Промокод {promocode.title} успешно удален"
+    else:
+        answer = f"Удаление отменено"
+    await state.finish()
+    await call.message.answer(answer, reply_markup=markups.admin_menu.admin_start())
 
 
 async def create_promocode(call: types.CallbackQuery, state: FSMContext):
@@ -46,7 +69,7 @@ async def create_promocode_name(message: types.Message, state: FSMContext):
 
 async def create_promocode_limit(message: types.Message, state: FSMContext):
     await state.update_data(limit=message.text)
-    await message.answer(f"Введите промокод\n Например\npromocode1234", reply_markup=ReplyKeyboardRemove())
+    await message.answer(f"Введите промокод\nНапример:\npromocode1234", reply_markup=ReplyKeyboardRemove())
     await CreatePromoCode.finish.set()
 
 
@@ -57,7 +80,7 @@ async def create_promocode_finish(message: types.Message, state: FSMContext):
         await PromoCode.create(
             **data
         )
-        await message.answer(f"Промоко успешно создан", reply_markup=markups.admin_menu.admin_start())
+        await message.answer(f"Промокод успешно создан", reply_markup=markups.admin_menu.admin_start())
     except Exception as e:
         logger.critical(e)
         await message.answer(f"Ошибка при создании")
@@ -67,8 +90,11 @@ async def create_promocode_finish(message: types.Message, state: FSMContext):
 def register_promocode_menu(dp: Dispatcher):
     callback = dp.register_callback_query_handler
     message = dp.register_message_handler
-    callback(current_promocodes, text="current_promocodes")
+    callback(current_promocodes, text="current_promocodes", state="*")
     callback(get_promocode, promocode_cd.filter(action="get"))
+
+    callback(delete_promocode, promocode_cd.filter(action="delete"))
+    callback(delete_promocode_complete, state=DeletePromoCode.delete)
 
     callback(create_promocode, text="create_promocode")
     message(create_promocode_name, state=CreatePromoCode.name)

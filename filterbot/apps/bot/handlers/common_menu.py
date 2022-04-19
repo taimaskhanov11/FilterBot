@@ -2,6 +2,7 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardRemove
+from aiogram.utils import markdown
 from loguru import logger
 
 from filterbot.apps.bot import markups
@@ -30,8 +31,15 @@ async def start(message: types.Message | types.CallbackQuery, user: User, state:
 
 async def profile(call: types.CallbackQuery, user: User, state: FSMContext):
     await state.finish()
-    await call.message.edit_text(f"ID: {user.user_id}\n\n"
-                                 f"Username: @{user.username}\n\n\n", "html",
+    await call.message.answer(f"🔑 ID: {user.user_id}\n"
+                              f"👤 Username: @{user.username}\n\n"
+                              f"{markdown.hbold(_('🛠 В разработке...'))}"
+                              f"", "html", )
+
+
+async def support(call: types.CallbackQuery, user: User, state: FSMContext):
+    await state.finish()
+    await call.message.edit_text(markdown.hbold(_("По всем вопросам пишите @Les0k")), "html",
                                  reply_markup=common_menu.start_menu(user.user_id))
 
 
@@ -61,7 +69,7 @@ async def statistic(call: types.CallbackQuery, state: FSMContext):
 
 async def input_promocode(call: types.CallbackQuery, state: FSMContext):
     await state.finish()
-    await call.message.answer(_("Введите промокод:"), reply_markup=ReplyKeyboardRemove())
+    await call.message.answer(_(f"Введите промокод\nНапример:\npromocode1234"), reply_markup=ReplyKeyboardRemove())
     await InputPromocode.input.set()
 
 
@@ -70,13 +78,15 @@ async def input_promocode_done(message: types.Message, user: User, state: FSMCon
     if promo_code:
         if not promo_code.user:
             promo_code.user = user
-            await message.answer(_("Промод {promocode} успешно активирован").format(promocode=promo_code.title),
+            await promo_code.save()
+            await message.answer(_("✅ Промокод {promocode} успешно активирован.\n"
+                                   "Количество привязок по админам: {count}").format(promocode=promo_code.title,
+                                                                                     count=promo_code.limit),
                                  reply_markup=common_menu.start_menu(user.user_id))
 
-            await promo_code.save()
             await state.finish()
         else:
-            await message.answer("Уже использован")
+            await message.answer(_("Уже использован"))
     else:
         await message.answer(_("Неправильный ввод"), reply_markup=common_menu.start_menu(user.user_id))
     await state.finish()
@@ -88,9 +98,10 @@ def register_common_handlers(dp: Dispatcher):
     message(start, UserFilter(), commands="start", state="*")
     callback(start, UserFilter(), text="start", state="*")
     callback(profile, UserFilter(), text="profile", state="*")
+    callback(support, UserFilter(), text="support", state="*")
     callback(statistic, text="statistic", state="*")
     callback(input_promocode, text="input_promocode", state="*")
     message(input_promocode_done, UserFilter(), state=InputPromocode.input)
 
-    callback(language, UserFilter(), text="language")
+    callback(language, UserFilter(), text="language", state="*")
     callback(language_choice, UserFilter(), state=LanguageChoice.choice)

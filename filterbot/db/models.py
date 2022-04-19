@@ -53,7 +53,7 @@ class PromoCode(models.Model):
             f"Название: {self.title}\n"
             f"Лимит: {self.limit}\n"
             f"Промокод: {self.code}\n"
-            f"Привязка: {self.user or 'Не привязан'}\n"
+            f"Привязка: @{self.user or 'Не привязан'}\n"
         )
 
 

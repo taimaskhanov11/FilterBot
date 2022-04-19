@@ -19,3 +19,11 @@ def current_promocodes(prcodes: list[PromoCode]):
          enumerate(prcodes))
     ]
     return get_inline_keyboard(keyboard)
+
+
+def get_promocode(pk: int):
+    keyboard = [
+        (("Удалить", promocode_cd.new(id=pk, action="delete"),),),
+        (("Назад", "current_promocodes"),),
+    ]
+    return get_inline_keyboard(keyboard)
