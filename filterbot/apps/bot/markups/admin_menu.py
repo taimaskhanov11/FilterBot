@@ -1,4 +1,4 @@
-from filterbot.apps.bot.callback_data.chat_filters_callback import user_cd, promocode_cd
+from filterbot.apps.bot.callback_data.chat_filters_callback import user_cd
 from filterbot.apps.bot.markups.utils import get_inline_keyboard
 from filterbot.db.models import User
 

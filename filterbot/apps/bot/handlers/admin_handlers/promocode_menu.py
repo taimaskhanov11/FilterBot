@@ -11,6 +11,7 @@ from filterbot.db.models import PromoCode
 
 class CreatePromoCode(StatesGroup):
     name = State()
+    admin_limit = State()
     limit = State()
     finish = State()
 
@@ -61,9 +62,13 @@ async def create_promocode(call: types.CallbackQuery, state: FSMContext):
 
 async def create_promocode_name(message: types.Message, state: FSMContext):
     await state.update_data(title=message.text)
-    await message.answer("Выберите количество чатов для парса по админам"
-                         # ,reply_markup= markups.promocode_menu.create_promocode_name()
-                         )
+    await message.answer("Выберите количество парса админов")
+    await CreatePromoCode.admin_limit.set()
+
+
+async def create_promocode_admin_limit(message: types.Message, state: FSMContext):
+    await state.update_data(admin_limit=message.text)
+    await message.answer("Выберите количество фильтров")
     await CreatePromoCode.limit.set()
 
 
@@ -98,5 +103,6 @@ def register_promocode_menu(dp: Dispatcher):
 
     callback(create_promocode, text="create_promocode")
     message(create_promocode_name, state=CreatePromoCode.name)
+    message(create_promocode_admin_limit, state=CreatePromoCode.admin_limit)
     message(create_promocode_limit, state=CreatePromoCode.limit)
     message(create_promocode_finish, state=CreatePromoCode.finish)

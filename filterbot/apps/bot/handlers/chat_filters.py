@@ -14,9 +14,10 @@ from telethon.tl.types import messages
 from filterbot.apps.bot import markups, temp
 from filterbot.apps.bot.callback_data.chat_filters_callback import chat_cb, filter_cb
 from filterbot.apps.bot.filters.base_filters import UserFilter
+from filterbot.apps.bot.markups.filter_menu import get_admin_filters_count
 from filterbot.apps.bot.temp import controllers
 from filterbot.apps.controller.controller import Controller
-from filterbot.db.models import User, MessageFilter, Chat, ChatStorage
+from filterbot.db.models import User, MessageFilter, Chat, ChatStorage, PromoCode
 from filterbot.loader import _
 
 
@@ -74,12 +75,15 @@ async def delete_chat(call: types.CallbackQuery, callback_data: dict[str, str], 
     await DeleteChat.delete.set()
 
 
-async def delete_chat_finish(call: types.CallbackQuery, state: FSMContext):
+async def delete_chat_finish(call: types.CallbackQuery, user: User, state: FSMContext):
     if call.data == "yes":
         data = await state.get_data()
         chat = await Chat.delete_chat(data["delete_chat_id"])
         controller: Controller = controllers.get(call.from_user.id)
         del controller.chats[chat.chat_id]
+        promocode = await PromoCode.get(user=user)
+        promocode.admin_limit -= 1
+        await promocode.save()
         answer = _("Чат {title} успешно удален").format(title=chat.title)
     else:
         answer = _("Удаление отменено")
@@ -92,7 +96,17 @@ async def create_chat_choice(call: types.CallbackQuery, user: User, state: FSMCo
     await state.finish()
     controller: Controller = temp.controllers.get(user.user_id)
     chats = await controller.client.get_dialogs()
-    # chats: messages.Chats = await controller.client(functions.messages.GetAllChatsRequest(except_ids=[]))
+
+    promocode = await user.promocode
+    if not promocode:
+        await call.message.answer(_("Нет активного промокода"))
+        return
+    else:
+        current_limit = await get_admin_filters_count(user.user_id)
+        if current_limit >= promocode.limit:
+            await call.message.answer(_("Достигнуто максимальное количество фильтров"))
+            return
+            # chats: messages.Chats = await controller.client(functions.messages.GetAllChatsRequest(except_ids=[]))
     # chats = chats.chats
     await call.message.answer(
         _(f"Ваши текущие чаты без фильтров. Выберите чат из списка для создания фильтра:\n"),
@@ -128,10 +142,12 @@ async def create_chat_filter_type(call: types.CallbackQuery, state: FSMContext, 
             # "title": callback_data["title"]
         }
     )
+    promocode = await user.promocode
+
     await call.message.answer(
         _("Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно должно пройти успешно все фильтры которые вы добавите."
           ),
-        reply_markup=await markups.filter_menu.create_chat_filter(user))
+        reply_markup=await markups.filter_menu.create_chat_filter(promocode))
     await state.update_data(filters={})
     await CreateChat.filter_input.set()
 
@@ -192,6 +208,7 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
         text = message.text
         filter_type = data["filter_type"]
         # if data["filter_type"] in ("user_id", "username", "admin"):
+        promocode = await user.promocode
         if filter_type == "user":
             controller: Controller = controllers.get(user.user_id)
             ids = await controller.get_users_ids(text)
@@ -204,6 +221,8 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
             filter_data = ids
 
         elif filter_type == "admin":
+            promocode.admin_limit -= 1
+            await promocode.save()
             controller: Controller = controllers.get(user.user_id)
             ids = await controller.get_admins_ids(int(data['filter_chat']["chat_id"]))
             admins = ""
@@ -239,13 +258,14 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
         end_text = ""
         for value in data["filters"].values():
             end_text += f'{value["text"]}\n'
-
+        if promocode.admin_limit == 0:
+            await message.answer(_("Лимит запроса по админам исчерпан"))
         await message.answer(
             _("Фильтр добавлен.\nВсе данные фильтра:\n{end_text}"
               # f"{pprint.pformat(data['filters'])}"
               f"\nХотите добавить еще?").format(end_text=end_text),
             "html",
-            reply_markup=await markups.filter_menu.create_chat_filter(user, again=True),
+            reply_markup=await markups.filter_menu.create_chat_filter(promocode, again=True),
         )
 
         await CreateChat.filter_input.set()
@@ -302,7 +322,7 @@ def register_chat_filter_handlers(dp: Dispatcher):
     callback(current_chat_filters, UserFilter(), text="current_chat_filters", state="*")
     callback(get_chat, chat_cb.filter(action="get"), state="*")
     callback(delete_chat, chat_cb.filter(action="delete"))
-    callback(delete_chat_finish, state=DeleteChat.delete)
+    callback(delete_chat_finish, UserFilter(), state=DeleteChat.delete)
 
     # create chat filter
     callback(create_chat_choice, UserFilter(), text="create_chat_choice", state="*")

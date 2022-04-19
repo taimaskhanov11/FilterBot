@@ -3,7 +3,7 @@ from telethon.tl.custom import dialog
 
 from filterbot.apps.bot.callback_data.chat_filters_callback import chat_cb, filter_cb
 from filterbot.apps.bot.markups.utils import get_inline_keyboard
-from filterbot.db.models import Chat, User
+from filterbot.db.models import Chat, User, PromoCode
 from filterbot.loader import _
 
 
@@ -78,17 +78,11 @@ async def get_admin_filters_count(user_id) -> int:
         "account__chats__message_filter__user_filters",
         "account__chats__message_filter__word_filter",
         "account__chats__chat_storage",
-    ).annotate()
-    admin_filter = 0
-    for chat in user.account.chats:
-        for user_filter in chat.message_filter.user_filters:
-            if user_filter.filter_type == "admin":
-                admin_filter += 1
-
-    return admin_filter
+    )
+    return len(user.account.chats)
 
 
-async def create_chat_filter(user: User, again=False):
+async def create_chat_filter(promocode: PromoCode, again=False):
     # keyboard = [
     #     (("По ключевым словам", filter_cb.new(type="word")),),
     #     (("По ID пользователей", filter_cb.new(type="user_id")),),
@@ -97,15 +91,12 @@ async def create_chat_filter(user: User, again=False):
     #     (("Главное меню", "main_menu"),),
     #     (("Завершить", filter_cb.new(type="complete")),) if again else (),
     # ]
-    pr = await user.promocodes
     admin_filter = ()
-    if pr:
-        pr = pr[0]
+    if promocode:
         # print(pr)
         # todo 4/19/2022 12:14 PM taima: большая нагрузка
-        current_limit = await get_admin_filters_count(user.user_id)
         # print(current_limit)
-        if current_limit < pr.limit:
+        if promocode.admin_limit > 0:
             admin_filter = ((_("👤 Добавить Фильтр по админам"), filter_cb.new(type="admin")),)
 
     keyboard = [

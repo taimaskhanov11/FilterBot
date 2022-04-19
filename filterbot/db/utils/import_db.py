@@ -1,8 +1,9 @@
 import asyncio
 import json
 
-from telethoncontrollerbot.db.db_main import init_tortoise
-from telethoncontrollerbot.db.models import DbUser
+from filterbot.config.config import config
+from filterbot.db.db_main import init_tortoise
+from filterbot.db.models import User
 
 
 def write_bc(data):
@@ -17,5 +18,12 @@ async def import_data():
         print(u.account)
 
 
+async def text_data():
+    await init_tortoise(**config.db.dict())
+    user = await User.first()
+    print(await user.promocode)
+    print(await user.promocode)
+
+
 if __name__ == "__main__":
-    asyncio.run(import_data())
+    asyncio.run(text_data())

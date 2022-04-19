@@ -22,7 +22,7 @@ class User(models.Model):
     registered_at = fields.DatetimeField(auto_now_add=True, description="Registration date")
     language = fields.CharField(max_length=5, description="Language code")
     account: fields.OneToOneNullableRelation["Account"]
-    promocodes: fields.ReverseRelation["PromoCode"]
+    promocode: fields.OneToOneNullableRelation["PromoCode"]
 
     def __str__(self):
         return f"{self.username}[{self.user_id}]"
@@ -44,14 +44,16 @@ class User(models.Model):
 
 class PromoCode(models.Model):
     title = fields.CharField(max_length=255)
+    admin_limit = fields.IntField()
     limit = fields.IntField()
     code = fields.CharField(max_length=255, index=True)
-    user = fields.ForeignKeyField("models.User", null=True)
+    user = fields.OneToOneField("models.User", null=True, on_delete=fields.SET_NULL)
 
     def __str__(self):
         return (
             f"Название: {self.title}\n"
-            f"Лимит: {self.limit}\n"
+            f"Лимит фильтров: {self.limit}\n"
+            f"Лимит запроса по админам: {self.admin_limit}\n"
             f"Промокод: {self.code}\n"
             f"Привязка: @{self.user or 'Не привязан'}\n"
         )
