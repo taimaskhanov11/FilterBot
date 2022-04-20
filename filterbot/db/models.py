@@ -112,7 +112,8 @@ class Chat(models.Model):
     async def delete_chat(cls, pk) -> "Chat":
         chat = await Chat.get(pk=pk).prefetch_related(
             "message_filter__user_filters",
-            "message_filter__word_filter", )
+            "message_filter__word_filter",
+        )
         await chat.message_filter.delete_filter()
         await chat.delete()
         return chat
@@ -160,10 +161,7 @@ class MessageFilter(models.Model):
                 message_filter.word_filter = word_filter
             else:
                 # user_filter = await UserFilter.create_filter(_filter["type"], _filter["data"])
-                await UserFilter.create(
-                    message_filter=message_filter,
-                    filter_type=_type,
-                    ids=data)
+                await UserFilter.create(message_filter=message_filter, filter_type=_type, ids=data)
                 # filters_data.update(user_filter=user_filter)
 
         await message_filter.save()
@@ -188,9 +186,9 @@ class MessageFilter(models.Model):
 class UserFilter(models.Model):
     ids = fields.JSONField()
     filter_type: Literal["admin", "user"] = fields.CharField(max_length=10)
-    message_filter: fields.ForeignKeyRelation["MessageFilter"] = fields.ForeignKeyField("models.MessageFilter",
-                                                                                        "user_filters",
-                                                                                        on_delete=fields.CASCADE)
+    message_filter: fields.ForeignKeyRelation["MessageFilter"] = fields.ForeignKeyField(
+        "models.MessageFilter", "user_filters", on_delete=fields.CASCADE
+    )
 
     class Meta:
         table_description = "Filter for users"

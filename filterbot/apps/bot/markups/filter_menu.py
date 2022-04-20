@@ -18,24 +18,35 @@ def filter_menu():
 def current_chat_filters(chats: list[Chat]):
     chats = [chat for chat in chats]
     chats.sort(key=lambda x: x.title)
-    keyboard = [
-        ((f"[#{num}] {chat.title}", chat_cb.new(chat_id=chat.pk, action="get")) for num, chat in enumerate(chats))
-    ]
+    new_chats = [chats[i:i + 2] for i in range(0, len(chats), 2)]
+    keyboard = []
+    for add_chats in new_chats:
+        keyboard.append(
+            # (chat.title, chat_cb.new(chat_id=chat.id, action="create")) for chat in add_chats
+            # (f"[#{num}] {chat.title}", chat_cb.new(chat_id=chat.pk, action="get")) for num, chat in enumerate(add_chats)
+            (f"{chat.title}", chat_cb.new(chat_id=chat.pk, action="get")) for chat in add_chats
+        )
+
+    # keyboard = [
+    #     ((f"[#{num}] {chat.title}", chat_cb.new(chat_id=chat.pk, action="get")) for num, chat in enumerate(chats))
+    # ]
     keyboard.append(
         (("Назад", "chat_filters"),),
     )
     return get_inline_keyboard(keyboard)
 
 
-def get_chat(chat_pk):
+def get_chat(chat: Chat):
     keyboard = [
-        ((_("👥 Добавить пользователя"), chat_cb.new(chat_id=chat_pk, action="add_user"),),
-         (_("👥 Удалить пользователя"), chat_cb.new(chat_id=chat_pk, action="delete_user"),),),
-        ((_("✍ Удалить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="delete_word"),),
-         (_("✍ Добавить ключевое слово"), chat_cb.new(chat_id=chat_pk, action="add_word"),),),
-        ((_("❌ Удалить фильтр"), chat_cb.new(chat_id=chat_pk, action="delete"),),),
+        ((_("❌ Удалить фильтр"), chat_cb.new(chat_id=chat.pk, action="delete"),),),
         ((_("Назад"), "current_chat_filters"),),
     ]
+    if chat.message_filter.user_filters:
+        keyboard.append(((_("👥 Добавить пользователя"), chat_cb.new(chat_id=chat.pk, action="add_user"),),
+                         (_("👥 Удалить пользователя"), chat_cb.new(chat_id=chat.pk, action="delete_user"),),))
+    if chat.message_filter.word_filter:
+        keyboard.append(((_("✍ Удалить ключевое слово"), chat_cb.new(chat_id=chat.pk, action="delete_word"),),
+                         (_("✍ Добавить ключевое слово"), chat_cb.new(chat_id=chat.pk, action="add_word"),),))
     return get_inline_keyboard(keyboard)
 
 

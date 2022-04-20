@@ -37,7 +37,7 @@ async def chat_filters_menu(call: types.CallbackQuery, state: FSMContext):
     await state.finish()
     controller: Controller = controllers.get(call.from_user.id)
     if not controller:
-        await call.answer(_("Привяжите аккаунт"))
+        await call.message.answer(_("Привяжите аккаунт"))
         return
     if not controller.client.is_connected():
         await call.message.answer(_("Для настройки фильтров возобновите работу бота"))
@@ -64,7 +64,7 @@ async def get_chat(call: types.CallbackQuery, callback_data: dict[str, str], sta
         "message_filter__user_filters",
         "message_filter__word_filter",
     )
-    await call.message.answer(chat.pretty(), "HTML", reply_markup=markups.filter_menu.get_chat(chat.pk))
+    await call.message.answer(chat.pretty(), "HTML", reply_markup=markups.filter_menu.get_chat(chat))
 
 
 async def delete_chat(call: types.CallbackQuery, callback_data: dict[str, str], state: FSMContext):
@@ -134,8 +134,9 @@ async def create_chat_storage(call: types.CallbackQuery, state: FSMContext, call
     await CreateChat.filter_type.set()
 
 
-async def create_chat_filter_type(call: types.CallbackQuery, state: FSMContext, user: User,
-                                  callback_data: dict[str, str]):
+async def create_chat_filter_type(
+        call: types.CallbackQuery, state: FSMContext, user: User, callback_data: dict[str, str]
+):
     await state.update_data(
         chat_storage={
             "chat_id": callback_data["chat_id"],
@@ -145,9 +146,11 @@ async def create_chat_filter_type(call: types.CallbackQuery, state: FSMContext, 
     promocode = await user.promocode
 
     await call.message.answer(
-        _("Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно должно пройти успешно все фильтры которые вы добавите."
-          ),
-        reply_markup=await markups.filter_menu.create_chat_filter(promocode))
+        _(
+            "Выберите тип фильтра. Чтобы сообщения дошло до вашего хранилища оно должно пройти успешно все фильтры которые вы добавите."
+        ),
+        reply_markup=await markups.filter_menu.create_chat_filter(promocode),
+    )
     await state.update_data(filters={})
     await CreateChat.filter_input.set()
 
@@ -217,20 +220,20 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
             for key, val in ids.items():
                 users += f"{count}. {key}:{val}\n"
                 count += 1
-            filter_text = markdown.hunderline(_("Фильтр id по именам пользователей\n")) + markdown.hpre(users)
+            filter_text = markdown.hunderline(_("Фильтр id по именам пользователей\n\n")) + markdown.hpre(users)
             filter_data = ids
 
         elif filter_type == "admin":
             promocode.admin_limit -= 1
             await promocode.save()
             controller: Controller = controllers.get(user.user_id)
-            ids = await controller.get_admins_ids(int(data['filter_chat']["chat_id"]))
+            ids = await controller.get_admins_ids(int(data["filter_chat"]["chat_id"]))
             admins = ""
             count = 1
             for key, val in ids.items():
                 admins += f"{count}. {key}:{val}\n"
                 count += 1
-            filter_text = markdown.hunderline(_("Фильтр id по админам:\n")) + markdown.hpre(admins)
+            filter_text = markdown.hunderline(_("Фильтр id по админам:\n\n")) + markdown.hpre(admins)
             filter_data = ids
 
         else:
@@ -238,7 +241,7 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
             words = ""
             for num, w in enumerate(words_lst, 1):
                 words += f"{num}. {w}\n"
-            filter_text = markdown.hunderline(_("Ключевые слова для фильтрации:\n")) + markdown.hpre(words)
+            filter_text = markdown.hunderline(_("Ключевые слова для фильтрации:\n\n")) + markdown.hpre(words)
             filter_data = words_lst
 
         # _filter = {
@@ -249,7 +252,7 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
         _filter = {
             # "type": data["filter_type"],
             "data": filter_data,
-            "text": filter_text
+            "text": filter_text,
         }
 
         data["filters"][filter_type] = _filter
@@ -261,9 +264,11 @@ async def create_chat_filter_additional(message: types.Message, user: User, stat
         if promocode.admin_limit == 0:
             await message.answer(_("Лимит запроса по админам исчерпан"))
         await message.answer(
-            _("Фильтр добавлен.\nВсе данные фильтра:\n{end_text}"
-              # f"{pprint.pformat(data['filters'])}"
-              f"\nХотите добавить еще?").format(end_text=end_text),
+            _(
+                "Фильтр добавлен.\n\nВсе данные фильтра:\n\n{end_text}"
+                # f"{pprint.pformat(data['filters'])}"
+                f"\nХотите добавить еще?"
+            ).format(end_text=end_text),
             "html",
             reply_markup=await markups.filter_menu.create_chat_filter(promocode, again=True),
         )

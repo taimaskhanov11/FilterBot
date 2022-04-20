@@ -15,15 +15,22 @@ def create_promocode_name():
 
 def current_promocodes(prcodes: list[PromoCode]):
     keyboard = [
-        ((f"[#{num}] {prcode.title}", promocode_cd.new(id=prcode.pk, action="get")) for num, prcode in
-         enumerate(prcodes))
+        (
+            (f"[#{num}] {prcode.title}", promocode_cd.new(id=prcode.pk, action="get"))
+            for num, prcode in enumerate(prcodes)
+        )
     ]
     return get_inline_keyboard(keyboard)
 
 
 def get_promocode(pk: int):
     keyboard = [
-        (("Удалить", promocode_cd.new(id=pk, action="delete"),),),
+        (
+            (
+                "Удалить",
+                promocode_cd.new(id=pk, action="delete"),
+            ),
+        ),
         (("Назад", "current_promocodes"),),
     ]
     return get_inline_keyboard(keyboard)

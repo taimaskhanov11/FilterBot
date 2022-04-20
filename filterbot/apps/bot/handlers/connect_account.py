@@ -40,7 +40,8 @@ async def connect_account(call: types.CallbackQuery):
             "3) Сохраните свои api_id, api_hash.\n"
             "4) Отправьте боту Ваши данные в следующем формате: api_id:api_hash:номер_телефона.\n"
             "Пример корректного ввода:\n123456:ababa123455abab:+79687878788"
-        ), reply_markup=markups.common_menu.menu_button()
+        ),
+        reply_markup=markups.common_menu.menu_button(),
     )
     await ConnectAccount.first()
 
@@ -63,12 +64,7 @@ async def connect_account_phone(message: types.Message, user: User, state: FSMCo
                 return
 
         client = ConnectAccountController(
-            user_id=user.user_id,
-            username=user.username,
-            phone=phone,
-            api_id=api_id,
-            api_hash=api_hash,
-            chats={}
+            user_id=user.user_id, username=user.username, phone=phone, api_id=api_id, api_hash=api_hash, chats={}
         )
         queue = Queue(maxsize=1)
         controller_codes_queue[user.user_id] = queue
@@ -88,15 +84,20 @@ async def connect_account_code(message: types.Message, user: User, state: FSMCon
     code = message.text
     if code.isdigit():
         await message.answer(
-            _(f"❌ Неправильный ввод код.\nПожалуйста повторите попытку создания с первого этапа и введите код с префиксом code как узказано в примере ниже \n"
-              f"Например:\ncode43123"), reply_markup=common_menu.start_menu(user.user_id))
+            _(
+                f"❌ Неправильный ввод код.\nПожалуйста повторите попытку создания с первого этапа и введите код с префиксом code как узказано в примере ниже \n"
+                f"Например:\ncode43123"
+            ),
+            reply_markup=common_menu.start_menu(user.user_id),
+        )
         await state.finish()
         return
     code = message.text.replace("code", "")
     queue = controller_codes_queue.get(user.user_id)
     queue.put_nowait(code)
     await message.answer(
-        _("Код получен, ожидайте завершения\nЕсли все прошло успешно Вам придет сообщение в личный чат."))
+        _("Код получен, ожидайте завершения\nЕсли все прошло успешно Вам придет сообщение в личный чат.")
+    )
     await state.finish()
 
 

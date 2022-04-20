@@ -25,10 +25,12 @@ class StatisticStorage:
             "account__chats__chat_storage",
         )
         chat_storages = set([chat.chat_storage for chat in user.account.chats])
-        answer = _("Количество фильтрованных чатов: {}\n"
-                   "Количество хранилищ: {}\n"
-                   "Количество отфильтрованных сообщений {}\n"
-                   "Всего полученных сообщений {}").format(
+        answer = _(
+            "Количество фильтрованных чатов: {}\n"
+            "Количество хранилищ: {}\n"
+            "Количество отфильтрованных сообщений {}\n"
+            "Всего полученных сообщений {}"
+        ).format(
             len(user.account.chats),
             len(chat_storages),
             self.get(f"{user.user_id}_filter_message"),

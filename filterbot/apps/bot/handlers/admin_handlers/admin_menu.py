@@ -42,12 +42,14 @@ async def admin_statistic(call: types.CallbackQuery, state: FSMContext):
     all_message = statistic_storage.get("all_message")
     filter_message = statistic_storage.get("filter_message")
 
-    await call.message.answer(f"Всего пользователей: {users}\n"
-                              f"Всего аккаунтов: {accounts}\n"
-                              f"Всего чатов: {chats}\n"
-                              f"Всего фильтров: {filters}\n"
-                              f"Всего входящих сообщений: {all_message}\n"
-                              f"Всего отфильтрованных сообщений: {filter_message}\n")
+    await call.message.answer(
+        f"Всего пользователей: {users}\n"
+        f"Всего аккаунтов: {accounts}\n"
+        f"Всего чатов: {chats}\n"
+        f"Всего фильтров: {filters}\n"
+        f"Всего входящих сообщений: {all_message}\n"
+        f"Всего отфильтрованных сообщений: {filter_message}\n"
+    )
 
 
 def register_admin_menu(dp: Dispatcher):

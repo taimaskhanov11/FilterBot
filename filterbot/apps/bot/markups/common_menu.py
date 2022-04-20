@@ -22,7 +22,7 @@ def start_menu(user_id):
         ((_("📈 Статистика"), "statistic"),),
         ((_("🔖 Ввести промокод"), "input_promocode"),),
         ((_("🀄️ Текущий промокод"), "current_promocode"),),
-        ((_("🇷🇺  Язык(🇺🇸 language)"), "language"), (_("💬 Поддержка"), "support")),
+        ((_("🇷🇺  Язык (🇺🇸 language)"), "language"), (_("💬 Поддержка"), "support")),
     ]
     return get_inline_keyboard(keyboard)
 

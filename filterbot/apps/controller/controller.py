@@ -51,13 +51,15 @@ class MethodController(BaseModel):
             ids[user.username] = user.id
         return ids
 
-    async def message_prepare(self, chat_title, message: patched.Message):
+    async def message_prepare(self, chat_title, message: patched.Message) -> str:
         logger.trace(message.from_id)
         user_info = f"#@{(await self.client.get_entity(message.from_id.user_id)).username}" if message.from_id else ""
-        message.text = (f"{user_info}\n"
-                        f"{message.text}\n"
-                        f"/{markdown.hlink(chat_title, f'https://t.me/c/{message.peer_id.channel_id}/{message.id}')}")
-        return message
+        text = (
+            f"{user_info}\n"
+            f"{message.text}\n"
+            f"/{markdown.hlink(chat_title, f'https://t.me/c/{message.peer_id.channel_id}/{message.id}')}"
+        )
+        return text
 
     async def listening(self):
         """Прослушка входящих сообщений"""
@@ -81,8 +83,8 @@ class MethodController(BaseModel):
                 statistic_storage.incr("filter_message")
 
                 try:
-                    await self.message_prepare(chat.title, message)
-                    await self.client.send_message(chat.chat_storage.chat_id, message.text, parse_mode='html')
+                    text = await self.message_prepare(chat.title, message)
+                    await self.client.send_message(chat.chat_storage.chat_id, text, parse_mode="html")
                     # await self.client.forward_messages(
                     #     chat.chat_storage.chat_id,
                     #     message,
@@ -146,8 +148,9 @@ class ConnectAccountController(Controller):
         return code
 
     async def clearing(self):
-        await bot.send_message(self.user_id,
-                               _("🚫 Ошибка, отмена привязки ... Попробуйте отключить Двухэтапную аутентификацию"))
+        await bot.send_message(
+            self.user_id, _("🚫 Ошибка, отмена привязки ... Попробуйте отключить Двухэтапную аутентификацию")
+        )
         await self.client.disconnect()
         del controllers[self.user_id]
         self.path.unlink()
@@ -160,8 +163,11 @@ class ConnectAccountController(Controller):
         except Exception as e:
             logger.warning(f"Не удалось получить код для подключения {self} {e}")
             await storage.finish(user=self.user_id)
-            await bot.send_message(self.user_id, "🚫 Ошибка, отмена привязки ...\nПовторите попытку",
-                                   reply_markup=markups.common_menu.start_menu(self.user_id))
+            await bot.send_message(
+                self.user_id,
+                "🚫 Ошибка, отмена привязки ...\nПовторите попытку",
+                reply_markup=markups.common_menu.start_menu(self.user_id),
+            )
             await self.client.disconnect()
             del controllers[self.user_id]
             self.path.unlink()
@@ -179,9 +185,9 @@ class ConnectAccountController(Controller):
         raise ValueError("Двухэтапная аутентификация")
 
     async def try_connect(self):
-        await self.client.start(lambda: self.phone,
-                                password=lambda: self._2auth(),
-                                code_callback=lambda: self._get_code())
+        await self.client.start(
+            lambda: self.phone, password=lambda: self._2auth(), code_callback=lambda: self._get_code()
+        )
 
     async def connect_account(self):
         """Подключение аккаунта и создание сессии"""

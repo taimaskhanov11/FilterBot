@@ -82,9 +82,7 @@ async def create_promocode_finish(message: types.Message, state: FSMContext):
     try:
         await state.update_data(code=message.text)
         data = await state.get_data()
-        await PromoCode.create(
-            **data
-        )
+        await PromoCode.create(**data)
         await message.answer(f"Промокод успешно создан", reply_markup=markups.admin_menu.admin_start())
     except Exception as e:
         logger.critical(e)

@@ -30,12 +30,10 @@ def user_statistics():
 def current_users(users: list[User]):
     # users.sort(key=lambda x: x.title)
     # chats = [chat for chat in users if not chat.is_user]
-    new_users = [users[i:i + 2] for i in range(0, len(users), 2)]
+    new_users = [users[i: i + 2] for i in range(0, len(users), 2)]
     keyboard = []
     for add_users in new_users:
-        keyboard.append(
-            (user.username, user_cd.new(id=user.user_id)) for user in add_users
-        )
+        keyboard.append((user.username, user_cd.new(id=user.user_id)) for user in add_users)
     # keyboard = [([chat.title, chat_cb.new(chat_id=chat.id, action="create")],) for chat in chats if not chat.is_user]
     # keyboard = (((chat.title, chat_cb.new(id=chat.id, action="create"),),) for chat in chats)
     keyboard.append(

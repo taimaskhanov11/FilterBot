@@ -41,8 +41,9 @@ async def delete_user_complete(message: types.Message, state: FSMContext):
                     await _filter.save()
 
         await chat.save()
-        await message.answer(f"{_('ID успешно добавлено')}\n{chat.pretty()}", "html",
-                             reply_markup=markups.filter_menu.get_chat(chat.pk))
+        await message.answer(
+            f"{_('ID успешно добавлено')}\n{chat.pretty()}", "html", reply_markup=markups.filter_menu.get_chat(chat)
+        )
 
     except Exception as e:
         logger.critical(e)
@@ -72,8 +73,9 @@ async def add_user_complete(message: types.Message, state: FSMContext):
                 await _filter.save()
 
         await chat.save()
-        await message.answer(f"{_('ID успешно добавлено')}\n{chat.pretty()}", "html",
-                             reply_markup=markups.filter_menu.get_chat(chat.pk))
+        await message.answer(
+            f"{_('ID успешно добавлено')}\n{chat.pretty()}", "html", reply_markup=markups.filter_menu.get_chat(chat)
+        )
 
     except Exception as e:
         logger.critical(e)
@@ -102,8 +104,9 @@ async def delete_word_complete(message: types.Message, state: FSMContext):
                 word_filter.words.remove(word)
                 await word_filter.save()
         await chat.save()
-        await message.answer(f"{_('Слово успешно удалено')}\n{chat.pretty()}", "html",
-                             reply_markup=markups.filter_menu.get_chat(chat.pk))
+        await message.answer(
+            f"{_('Слово успешно удалено')}\n{chat.pretty()}", "html", reply_markup=markups.filter_menu.get_chat(chat)
+        )
 
     except Exception as e:
         logger.critical(e)
@@ -130,8 +133,11 @@ async def add_word_complete(message: types.Message, state: FSMContext):
         word_filter.words.extend(words_lst)
         await word_filter.save()
         await chat.save()
-        await message.answer(f"{_('Слово успешно добавлено')}\n{chat.pretty()}", "html",
-                             reply_markup=markups.filter_menu.get_chat(chat.pk))
+        await message.answer(
+            f"{_('Слово успешно добавлено')}\n{chat.pretty()}",
+            "html",
+            reply_markup=markups.filter_menu.get_chat(chat),
+        )
 
     except Exception as e:
         logger.critical(e)

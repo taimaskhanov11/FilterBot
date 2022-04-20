@@ -31,10 +31,10 @@ async def start(message: types.Message | types.CallbackQuery, user: User, state:
 
 async def profile(call: types.CallbackQuery, user: User, state: FSMContext):
     await state.finish()
-    await call.message.answer(f"🔑 ID: {user.user_id}\n"
-                              f"👤 Username: @{user.username}\n\n"
-                              f"{markdown.hbold(_('🛠 В разработке...'))}"
-                              f"", "html", )
+    await call.message.answer(
+        f"🔑 ID: {user.user_id}\n" f"👤 Username: @{user.username}\n\n" f"{markdown.hbold(_('🛠 В разработке...'))}" f"",
+        "html",
+    )
 
 
 async def support(call: types.CallbackQuery, user: User, state: FSMContext):
@@ -86,14 +86,19 @@ async def input_promocode_done(message: types.Message, user: User, state: FSMCon
     promo_code = await PromoCode.filter(code=message.text).select_related("user").first()
     if promo_code:
         if not promo_code.user:
+            old_promo_code = await user.promocode
+            old_promo_code.user = None
+            await old_promo_code.save()
             promo_code.user = user
             await promo_code.save()
-            await message.answer(_("✅ Промокод {promocode} успешно активирован.\n"
-                                   "Количество привязок по админам: {admin}\n"
-                                   "Количество фильтров {filter}").format(promocode=promo_code.title,
-                                                                          admin=promo_code.admin_limit,
-                                                                          filter=promo_code.admin_limit),
-                                 reply_markup=common_menu.start_menu(user.user_id))
+            await message.answer(
+                _(
+                    "✅ Промокод {promocode} успешно активирован.\n"
+                    "Количество привязок по админам: {admin}\n"
+                    "Количество фильтров {filter}"
+                ).format(promocode=promo_code.title, admin=promo_code.admin_limit, filter=promo_code.admin_limit),
+                reply_markup=common_menu.start_menu(user.user_id),
+            )
 
             await state.finish()
         else:
